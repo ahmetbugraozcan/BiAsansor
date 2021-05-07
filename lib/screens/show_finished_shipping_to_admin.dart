@@ -22,8 +22,11 @@ class _ShowFinishedShippingToAdminState
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
-                widget.payload.toString(),
+              TextFormField(
+                readOnly: true,
+                minLines: 1,
+                maxLines: 400,
+                initialValue: widget.payload.toString(),
                 style: context.theme.textTheme.headline6,
               ),
             ],

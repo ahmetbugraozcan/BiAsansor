@@ -7,8 +7,6 @@ import 'package:flutter_biasansor/locator.dart';
 import 'package:flutter_biasansor/model/finished_shipping.dart';
 import 'package:flutter_biasansor/model/order.dart';
 import 'package:flutter_biasansor/model/shipper.dart';
-import 'package:flutter_biasansor/screens/tab_page.dart';
-import 'package:flutter_biasansor/screens/tab_pages/profile_page.dart';
 import 'package:flutter_biasansor/utils.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_biasansor/widgets/platform_duyarli_alert_dialog.dart';
@@ -16,8 +14,8 @@ import 'package:flutter_biasansor/widgets/social_log_in_button.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class RentalFinishPage extends StatefulWidget {
+  // TODO butona basınca widgets ancestor unsafe hatası var bazen
   Shipper shipper;
   Order order;
   String shipperID;
