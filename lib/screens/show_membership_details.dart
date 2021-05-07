@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_biasansor/core/extensions/context_extension.dart';
+import 'package:flutter_biasansor/locator.dart';
 import 'package:flutter_biasansor/model/membership_form.dart';
+import 'package:flutter_biasansor/utils.dart';
 
 class ShowMembershipDetails extends StatefulWidget {
   MembershipForm membershipForm;
@@ -12,28 +15,104 @@ class _ShowMembershipDetailsState extends State<ShowMembershipDetails> {
   @override
   Widget build(BuildContext context) {
     var membershipForm = widget.membershipForm;
+    var _utils = locator<Utils>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Başvuru Formu Detayları"),
       ),
       body: ListView(
         children: [
-          Text(membershipForm.floorPrices ?? " null"),
-          Text("Başvuranın Adı : " + membershipForm.fullName),
-          Text("Başvuranın Şirket Adı : " + membershipForm.shippingName),
-          Text("Başvuranın Telefon Numarası: " + membershipForm.phoneNumber),
-          // Text("Başvuranın Fiyatlandırma Tarifesi : " +
-          //     membershipForm.floorPrices),
-          Text("Başvuranın Çalıştığı Bölgeler: " +
-              membershipForm.locations.toString()),
-          Text("Başvuranın Sektördeki Deneyimi: " +
-              membershipForm.experience.toString() +
-              " Yıl"),
-          Text("Başvuranın Asansör Fotoğraf Urli: " + membershipForm.photoUrl),
-          Text("Başvuranın Asansörünün Çıkabileceği En Yüksek Kat Sayısı " +
-              membershipForm.maxFloor.toString() +
-              " Kat"),
-          Text("Başvuranın Şirketi Hakkında Bilgiler" + membershipForm.aboutUs),
+          ListTile(
+            title: Text("Başvuranın adı",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.fullName,
+            ),
+          ),
+          ListTile(
+            title: Text("Başvuranın Şirket Adı",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.shippingName,
+            ),
+          ),
+          ListTile(
+            title: Text("Başvuranın Telefon Numarası",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.phoneNumber,
+            ),
+          ),
+          ListTile(
+            title: Text("Başvuranın Çalıştığı Bölgeler",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.locations.toString(),
+            ),
+          ),
+          ListTile(
+            title: Text("Başvuranın Sektördeki Deneyimi",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.experience.toString() + " Yıl",
+            ),
+          ),
+          ListTile(
+            title: Text("Başvuranın Asansör Fotoğraf Urli",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.photoUrl,
+            ),
+          ),
+          ListTile(
+            title: Text("Başvuranın Şirketi Hakkında Bilgiler",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.aboutUs,
+            ),
+          ),
+          ListTile(
+            title: Text("Kat Tarifeleri",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.floorPrices,
+            ),
+          ),
+          ListTile(
+            title: Text("Çıkabileceği En Yüksek Kat Sayısı",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue: membershipForm.maxFloor.toString(),
+            ),
+          ),
+          ListTile(
+            title: Text("Formun Gönderildiği Tarih",
+                style: context.theme.textTheme.headline6
+                    .copyWith(color: Colors.blue[900])),
+            subtitle: TextFormField(
+              readOnly: true,
+              initialValue:
+                  _utils.printDate(membershipForm.formSendingDate.toDate()),
+            ),
+          ),
         ],
       ),
     );
