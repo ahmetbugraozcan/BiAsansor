@@ -28,7 +28,8 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
     with TickerProviderStateMixin {
   String hakkimizda =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a fringilla ligula. Nulla facilisi. Sed enim risus, lobortis at tortor id, malesuada fermentum erat. Ut eget lectus non neque rhoncus ornare. Aenean vestibulum dui sollicitudin scelerisque congue. Suspendisse potenti. Sed consectetur aliquet metus eget condimentum.';
-  bool isTapped = false;
+  bool isTappedAboutUs = false;
+  bool isTappedLocations = false;
   Shipper shipper;
   var rating = 0.0;
   final _utils = locator<Utils>();
@@ -193,39 +194,72 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                         ),
                         Padding(
                           padding: context.paddingHorizontalLow,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Hizmet Bölgeleri',
-                                style: context.theme.textTheme.subtitle1
-                                    .copyWith(fontWeight: FontWeight.w500),
-                              ),
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: shipper.locations.length,
-                                  itemBuilder: (context, index) {
-                                    return Wrap(
-                                      children: [
-                                        Icon(Icons.location_on),
-                                        Text(
-                                          shipper.locations[index],
-                                          style:
-                                              context.theme.textTheme.subtitle1,
-                                        ),
-                                      ],
-                                    );
-                                  })
-                              // Wrap(
-                              //   children: [
-                              //     Icon(Icons.location_on),
-                              //     Text(
-                              //       _utils.printLocations(shipper.locations),
-                              //       style: context.theme.textTheme.subtitle1,
-                              //     ),
-                              //   ],
-                              // ),
-                            ],
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                isTappedLocations = !isTappedLocations;
+                                print("Basıldı");
+                              });
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Hizmet Bölgeleri',
+                                  style: context.theme.textTheme.subtitle1
+                                      .copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.blue[900]),
+                                ),
+                                AnimatedSize(
+                                    duration: const Duration(milliseconds: 5),
+                                    vsync: this,
+                                    child: ListView.builder(
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        //en az 4 gösterelim
+                                        itemCount: !isTappedLocations
+                                            ? shipper.locations.length <= 4
+                                                ? shipper.locations.length
+                                                : 4
+                                            : shipper.locations.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Wrap(
+                                                children: [
+                                                  Icon(Icons.location_on),
+                                                  Text(
+                                                    shipper.locations[index],
+                                                    style: context.theme
+                                                        .textTheme.subtitle1,
+                                                  ),
+                                                ],
+                                              ),
+                                              !isTappedLocations && index == 3
+                                                  ? Text("Devamını Gör",
+                                                      style: context.theme
+                                                          .textTheme.bodyText1
+                                                          .copyWith(
+                                                              color: Colors
+                                                                  .blue[900]))
+                                                  : SizedBox(),
+                                            ],
+                                          );
+                                        })),
+                                // Wrap(
+                                //   children: [
+                                //     Icon(Icons.location_on),
+                                //     Text(
+                                //       _utils.printLocations(shipper.locations),
+                                //       style: context.theme.textTheme.subtitle1,
+                                //     ),
+                                //   ],
+                                // ),
+                              ],
+                            ),
                           ),
                         ),
                         Divider(
@@ -267,7 +301,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                     halfFilledIcon: Icons.star_half_outlined,
                                     initialRating: shipper.rating.isNaN
                                         ? 0
-                                        : shipper.rating,
+                                        : shipper.rating.floorToDouble(),
                                     size: 20,
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
@@ -297,12 +331,21 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                 ],
                               ),
                               Flexible(
-                                child: Text(
-                                  '${shipper.comments.length} Yorum',
-                                  style:
-                                      context.theme.textTheme.button.copyWith(
-                                    color: Colors.black,
-                                    decoration: TextDecoration.underline,
+                                child: TextButton(
+                                  onPressed: () => Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => AllCommentsPage(
+                                                comments: shipper.comments,
+                                                rating: shipper.rating,
+                                              ))),
+                                  child: Text(
+                                    '${shipper.comments.length} Yorum',
+                                    style:
+                                        context.theme.textTheme.button.copyWith(
+                                      color: Colors.black,
+                                      decoration: TextDecoration.underline,
+                                    ),
                                   ),
                                 ),
                               )
@@ -443,67 +486,61 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                         ),
                         shipper.aboutUsText.isEmpty
                             ? SizedBox()
-                            : Card(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Hakkımızda',
-                                      style: context.theme.textTheme.headline6,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          isTapped = !isTapped;
-                                        });
-                                      },
-                                      child: Padding(
-                                        padding: context.paddingAllLow,
-                                        child: AnimatedSize(
-                                          duration:
-                                              const Duration(milliseconds: 1),
-                                          vsync: this,
-                                          child: isTapped
-                                              ? Text(
-                                                  shipper.aboutUsText,
-                                                  textAlign: TextAlign.center,
-                                                  style: context.theme.textTheme
-                                                      .bodyText2,
-                                                )
-                                              : RichText(
-                                                  textAlign: TextAlign.center,
-                                                  text: TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text: shipper
-                                                            .aboutUsText
-                                                            .substring(
-                                                                0,
-                                                                (shipper.aboutUsText
-                                                                            .length /
-                                                                        3)
-                                                                    .round()),
-                                                        style: context
-                                                            .theme
-                                                            .textTheme
-                                                            .bodyText2,
-                                                      ),
-                                                      TextSpan(
-                                                        text:
-                                                            ' ...devamını oku',
-                                                        style: context.theme
-                                                            .textTheme.bodyText2
-                                                            .copyWith(
-                                                                color: Colors
-                                                                    .blue[900]),
-                                                      )
-                                                    ],
-                                                  ),
+                            : Column(
+                                children: [
+                                  Text(
+                                    'Hakkımızda',
+                                    style: context.theme.textTheme.headline6,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isTappedAboutUs = !isTappedAboutUs;
+                                      });
+                                    },
+                                    child: Padding(
+                                      padding: context.paddingAllLow,
+                                      child: AnimatedSize(
+                                        duration:
+                                            const Duration(milliseconds: 1),
+                                        vsync: this,
+                                        child: isTappedAboutUs
+                                            ? Text(
+                                                shipper.aboutUsText,
+                                                textAlign: TextAlign.center,
+                                                style: context
+                                                    .theme.textTheme.bodyText2,
+                                              )
+                                            : RichText(
+                                                textAlign: TextAlign.center,
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: shipper.aboutUsText
+                                                          .substring(
+                                                              0,
+                                                              (shipper.aboutUsText
+                                                                          .length /
+                                                                      3)
+                                                                  .round()),
+                                                      style: context.theme
+                                                          .textTheme.bodyText2,
+                                                    ),
+                                                    TextSpan(
+                                                      text: ' ...devamını oku',
+                                                      style: context.theme
+                                                          .textTheme.bodyText2
+                                                          .copyWith(
+                                                              color: Colors
+                                                                  .blue[900]),
+                                                    )
+                                                  ],
                                                 ),
-                                        ),
+                                              ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
 
                         // Divider(
