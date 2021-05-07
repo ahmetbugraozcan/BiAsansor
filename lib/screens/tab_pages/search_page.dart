@@ -687,8 +687,10 @@ class _SearchPageState extends State<SearchPage> {
                 child: TextFormField(
                   decoration: InputDecoration(icon: Icon(Icons.search)),
                   onChanged: (value) {
-                    list = [];
-                    list.clear();
+                    setState(() {
+                      list = <String>[];
+                      list.clear();
+                    });
                     allLocations.forEach((element) {
                       if (element.toLowerCase().contains(value.toLowerCase())) {
                         setState(() {

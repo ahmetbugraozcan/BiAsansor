@@ -292,13 +292,14 @@ class _AddShipperPageState extends State<AddShipperPage> {
                                                 key:
                                                     _shipperLocationKeys[index],
                                                 child: TextFormField(
-                                                  validator: (value) {
-                                                    if (value.isEmpty) {
-                                                      return 'Bir değer girilmelidir';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
+                                                  //TODO validate çok fazla değer olduğu zaman null dönüyor o yüzden şimdilik kaldırdık
+                                                  // validator: (value) {
+                                                  //   if (value.isEmpty) {
+                                                  //     return 'Bir değer girilmelidir';
+                                                  //   } else {
+                                                  //     return null;
+                                                  //   }
+                                                  // },
                                                   controller:
                                                       _shipperLocationControllers[
                                                           index],
@@ -337,14 +338,14 @@ class _AddShipperPageState extends State<AddShipperPage> {
                                             mainButtonText: 'Tamam',
                                           ).show(context);
                                         }
-                                        _shipperLocationKeys.forEach((element) {
-                                          if (element.currentState.validate()) {
-                                            print('validate oldu : ');
-                                            element.currentState.save();
-                                          } else {
-                                            isLocationFieldsValidated = false;
-                                          }
-                                        });
+                                        // _shipperLocationKeys.forEach((element) {
+                                        //   if (element.currentState.validate()) {
+                                        //     print('validate oldu : ');
+                                        //     element.currentState.save();
+                                        //   } else {
+                                        //     isLocationFieldsValidated = false;
+                                        //   }
+                                        // });
                                         if (isLocationFieldsValidated) {
                                           //tekrarlı eleman buluyor tekrardan temizlemezsek
                                           shipperLocations.clear();
@@ -913,8 +914,10 @@ class _AddShipperPageState extends State<AddShipperPage> {
                 child: TextFormField(
                   decoration: InputDecoration(icon: Icon(Icons.search)),
                   onChanged: (value) {
-                    list = <String>[];
-                    list.clear();
+                    setState(() {
+                      list = <String>[];
+                      list.clear();
+                    });
                     allLocations.forEach((element) {
                       if (element.toLowerCase().contains(value.toLowerCase())) {
                         setState(() {

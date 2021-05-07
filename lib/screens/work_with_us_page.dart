@@ -348,13 +348,13 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                                     key: _shipperLocationKeys[
                                                         index],
                                                     child: TextFormField(
-                                                      validator: (value) {
-                                                        if (value.isEmpty) {
-                                                          return 'Bir değer girilmelidir';
-                                                        } else {
-                                                          return null;
-                                                        }
-                                                      },
+                                                      // validator: (value) {
+                                                      //   if (value.isEmpty) {
+                                                      //     return 'Bir değer girilmelidir';
+                                                      //   } else {
+                                                      //     return null;
+                                                      //   }
+                                                      // },
                                                       controller:
                                                           _shipperLocationControllers[
                                                               index],
@@ -396,17 +396,17 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                                 mainButtonText: 'Tamam',
                                               ).show(context);
                                             }
-                                            _shipperLocationKeys
-                                                .forEach((element) {
-                                              if (element.currentState
-                                                  .validate()) {
-                                                print('validate oldu : ');
-                                                element.currentState.save();
-                                              } else {
-                                                isLocationFieldsValidated =
-                                                    false;
-                                              }
-                                            });
+                                            // _shipperLocationKeys
+                                            //     .forEach((element) {
+                                            //   if (element.currentState
+                                            //       .validate()) {
+                                            //     print('validate oldu : ');
+                                            //     element.currentState.save();
+                                            //   } else {
+                                            //     isLocationFieldsValidated =
+                                            //         false;
+                                            //   }
+                                            // });
                                             if (isLocationFieldsValidated) {
                                               //tekrarlı eleman buluyor tekrardan temizlemezsek
                                               shipperLocations.clear();
@@ -670,17 +670,20 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                     Icons.search,
                   )),
                   onChanged: (value) {
-                    list.clear();
-                    list = [];
-
+                    //TODO olmayan bir değer yazınca hata var
+                    setState(() {
+                      list = [];
+                      list.clear();
+                    });
                     allLocations.forEach((element) {
                       if (element.toLowerCase().contains(value.toLowerCase())) {
-                        print("burdayız");
                         setState(() {
                           list.add(element);
                         });
                       }
                     });
+                    print("burdayız");
+                    print(list.length);
                   },
                   controller: _autoCompleteTextFieldController,
                 ),
