@@ -315,8 +315,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                                   isHalfAllowed: true,
                                                   halfFilledIcon:
                                                       Icons.star_half_outlined,
-                                                  initialRating:
-                                                      shipper.rating ?? 0,
+                                                  initialRating: shipper.rating
+                                                          .floorToDouble() ??
+                                                      0,
                                                   size: 20,
                                                   filledIcon: Icons.star,
                                                   emptyIcon:
