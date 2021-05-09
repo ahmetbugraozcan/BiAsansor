@@ -98,19 +98,6 @@ class Repository implements AuthBase {
       var _userAcc = await _fakeAuthenticationService.signInWithFacebook();
       return _userAcc;
     }
-    // if (appMode == AppMode.RELEASE) {
-    //   var _userAcc = await _firebaseAuthService.signInWithFacebook();
-    //   var _sonuc = await _firestoreDatabaseService.saveUser(_userAcc);
-    //   if (_sonuc) {
-    //     return await _firestoreDatabaseService.readUser(_userAcc.userID);
-    //   } else {
-    //     await _firebaseAuthService.signOut();
-    //     return null;
-    //   }
-    // } else {
-    //   var _userAcc = await _fakeAuthenticationService.signInWithFacebook();
-    //   return _userAcc;
-    // }
   }
 
   @override
@@ -341,10 +328,26 @@ class Repository implements AuthBase {
     }
   }
 
+  Future<String> uploadCampaignPhoto(
+      String campaignID, File campaignPhoto) async {
+    if (appMode == AppMode.DEBUG) {
+    } else {
+      return await _firebaseStorageService.uploadCampaignPhoto(
+          campaignID, campaignPhoto);
+    }
+  }
+
   Future<String> addBlog(Blog blog) async {
     if (appMode == AppMode.DEBUG) {
     } else {
       return await _firestoreDatabaseService.addBlog(blog);
+    }
+  }
+
+  Future<String> addCampaign(Campaign campaign) async {
+    if (appMode == AppMode.DEBUG) {
+    } else {
+      return await _firestoreDatabaseService.addCampaign(campaign);
     }
   }
 
@@ -377,17 +380,31 @@ class Repository implements AuthBase {
   Future<List<Campaign>> getCampaigns() async {
     if (appMode == AppMode.DEBUG) {
     } else {
-      return await _firestoreDatabaseService.getCampaigns();
+      var campaigns = await _firestoreDatabaseService.getCampaigns();
+      for (var campaign in campaigns) {
+        var url = await _firebaseStorageService
+            .getCampaignPhotoDownloadLink(campaign.campaignID);
+        campaign.photoLink = url;
+      }
+      return campaigns;
     }
   }
 
   Future<List<Campaign>> getCampaignsWithPagination() async {
     if (appMode == AppMode.DEBUG) {
     } else {
-      return await _firestoreDatabaseService.getCampaignsWithPagination();
+      var campaigns =
+          await _firestoreDatabaseService.getCampaignsWithPagination();
+      for (var campaign in campaigns) {
+        var url = await _firebaseStorageService
+            .getCampaignPhotoDownloadLink(campaign.campaignID);
+        campaign.photoLink = url;
+      }
+      return campaigns;
     }
   }
 
+  @override
   Future<bool> sendPasswordResetEmail(String email) async {
     if (appMode == AppMode.DEBUG) {
     } else {

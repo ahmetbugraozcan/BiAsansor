@@ -324,6 +324,7 @@ class FirestoreDatabaseService implements DBBase {
       counter = 0;
       zam = 0;
       for (var tasinacakKat in order.floorsToTransport) {
+        counter = 0;
         for (var exception in shipper.exceptionFloors) {
           if (tasinacakKat <= exception) {
           } else {
@@ -527,6 +528,15 @@ class FirestoreDatabaseService implements DBBase {
     return blogRef.id;
   }
 
+  //TODO BU EKLENECEK
+  Future<String> addCampaign(Campaign campaign) async {
+    var campaignRef = _firestore.collection("campaigns").doc();
+    campaign.campaignID = campaignRef.id;
+    campaign.campaignDate = Timestamp.now();
+    await campaignRef.set(campaign.toMap());
+    return campaignRef.id;
+  }
+
   Future<List<Blog>> readBlogs() async {
     var blogs = <Blog>[];
     var result = await _firestore
@@ -572,22 +582,11 @@ class FirestoreDatabaseService implements DBBase {
     campaignsDocList = result.docs;
     for (var campaignDoc in result.docs) {
       var campaign = Campaign.fromMap(campaignDoc.data());
+      //bura çalışıyor
+      // print(campaign.toString());
       campaigns.add(campaign);
     }
     return campaigns;
-    // var blogs = <Blog>[];
-    // var result = await _firestore
-    //     .collection("blogs")
-    //     .orderBy("blogTime", descending: true)
-    //     .limit(10)
-    //     .get();
-    // blogsDocList = result.docs;
-    // for (var blogDoc in result.docs) {
-    //   //id ile bloglardan fotoları oku indirme linkine eşitle blog nesnesi oluştur listeye ekle listeyi döndür
-    //   var blog = Blog.fromMap(blogDoc.data());
-    //   blogs.add(blog);
-    // }
-    // return blogs;
   }
 
   @override
@@ -605,20 +604,5 @@ class FirestoreDatabaseService implements DBBase {
       campaigns.add(campaign);
     }
     return campaigns;
-    // print('Buraya girdik');
-    // var membershipFormList = <MembershipForm>[];
-    // var membershipDocs = await _firestore
-    //     .collection('membershipForms')
-    //     .orderBy("formSendingDate", descending: true)
-    //     .startAfterDocument(
-    //     membershipFormsDocList[membershipFormsDocList.length - 1])
-    //     .limit(5)
-    //     .get();
-    // membershipFormsDocList.addAll(membershipDocs.docs);
-    // membershipDocs.docs.forEach((element) {
-    //   var membershipForm = MembershipForm.fromMap(element.data());
-    //   membershipFormList.add(membershipForm);
-    // });
-    // return membershipFormList;
   }
 }

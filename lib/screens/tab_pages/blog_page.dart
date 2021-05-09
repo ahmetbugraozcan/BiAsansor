@@ -5,6 +5,7 @@ import 'package:flutter_biasansor/model/blog.dart';
 import 'package:flutter_biasansor/screens/add_blog_page.dart';
 import 'package:flutter_biasansor/screens/blog_detail_page.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
+
 import 'package:provider/provider.dart';
 
 class BlogPage extends StatefulWidget {
@@ -32,6 +33,8 @@ class _BlogPageState extends State<BlogPage> {
               onPressed: () {
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => AddBlogPage()));
+                // Navigator.push(context,
+                //     CupertinoPageRoute(builder: (context) => ZephyrText()));
               },
               child: Icon(Icons.add),
             )
@@ -71,6 +74,7 @@ class _BlogPageState extends State<BlogPage> {
 
   Widget buildBlogListView() {
     return ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
         controller: _scrollController,
         itemCount: blogs.length,
         itemBuilder: (context, index) {

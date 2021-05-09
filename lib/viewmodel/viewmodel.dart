@@ -301,6 +301,16 @@ class ViewModel with ChangeNotifier implements AuthBase {
     return await _userRepository.addBlog(blog);
   }
 
+  Future<String> addCampaign(Campaign campaign) async {
+    return await _userRepository.addCampaign(campaign);
+  }
+
+//addCampaign
+  Future<String> uploadCampaignPhoto(
+      String campaignID, File campaignPhoto) async {
+    return await _userRepository.uploadCampaignPhoto(campaignID, campaignPhoto);
+  }
+
   Future<String> uploadBlogImage(String blogID, File blogPhoto) async {
     return await _userRepository.uploadBlogImage(blogID, blogPhoto);
   }

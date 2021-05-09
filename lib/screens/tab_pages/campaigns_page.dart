@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
 import 'package:flutter_biasansor/model/campaign.dart';
 import 'package:flutter_biasansor/notification_handler.dart';
+import 'package:flutter_biasansor/screens/add_campaign_page.dart';
 import 'package:flutter_biasansor/screens/campaign.detail_page.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -29,6 +30,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var _viewModel = Provider.of<ViewModel>(context);
     return Scaffold(
+        floatingActionButton: _viewModel.user.isAdmin
+            ? FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => AddCampaignPage()));
+                },
+                child: Icon(Icons.add),
+              )
+            : null,
         appBar: AppBar(
           title: Text("BiAsansör - Kampanyalar"),
         ),
@@ -63,6 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildCampaignListView() {
     return ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
         controller: _scrollController,
         itemCount: campaigns.length,
         itemBuilder: (context, index) {

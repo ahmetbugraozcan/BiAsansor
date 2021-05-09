@@ -380,7 +380,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                                 child: Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      '${shipper.displayingShippingPrice}₺',
+                                                      '${shipper.displayingShippingPrice.toString()}₺',
                                                       style: context.theme
                                                           .textTheme.bodyText1
                                                           .copyWith(

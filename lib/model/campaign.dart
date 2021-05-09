@@ -3,17 +3,34 @@ import 'package:flutter/cupertino.dart';
 
 class Campaign {
   String photoLink;
-  String bodyText;
+  String campaignID;
   Timestamp campaignDate;
-  Campaign(
-      {@required this.photoLink,
-      @required this.bodyText,
-      @required this.campaignDate});
+  String campaignLink;
+  Campaign({
+    @required this.campaignLink,
+    this.photoLink,
+    this.campaignDate,
+    this.campaignID,
+  });
 
   factory Campaign.fromMap(Map<String, dynamic> map) {
     return Campaign(
-        bodyText: map['bodyText'],
-        photoLink: map['photoLink'],
-        campaignDate: map['campaignDate']);
+        campaignLink: map['campaignLink'],
+        campaignDate: map['campaignDate'],
+        campaignID: map['campaignID']);
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'campaignLink': campaignLink,
+      'campaignDate': campaignDate,
+      'campaignID': campaignID,
+    };
+  }
+
+  String toString() {
+    return 'Linkimiz : ' +
+        campaignLink +
+        "datemiz : " +
+        campaignDate.toDate().toString();
   }
 }

@@ -723,7 +723,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
         isLoading = true;
       });
       var _newPicture =
-          await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+          await ImagePicker.pickImage(source: ImageSource.gallery);
       if (mounted) {
         _profilePhoto = File(_newPicture.path);
 
@@ -749,8 +749,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
       setState(() {
         isLoading = true;
       });
-      var _newPicture =
-          await ImagePicker.platform.pickImage(source: ImageSource.camera);
+      var _newPicture = await ImagePicker.pickImage(source: ImageSource.camera);
       if (mounted) {
         _profilePhoto = File(_newPicture.path);
 

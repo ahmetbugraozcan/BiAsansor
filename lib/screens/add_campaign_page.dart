@@ -2,34 +2,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
 import 'package:flutter_biasansor/model/blog.dart';
+import 'package:flutter_biasansor/model/campaign.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_biasansor/widgets/platform_duyarli_alert_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class AddBlogPage extends StatefulWidget {
+class AddCampaignPage extends StatefulWidget {
   @override
-  _AddBlogPageState createState() => _AddBlogPageState();
+  _AddCampaignPageState createState() => _AddCampaignPageState();
 }
 
-class _AddBlogPageState extends State<AddBlogPage> {
-  GlobalKey<FormState> _titleKey = GlobalKey<FormState>();
-  GlobalKey<FormState> _bodyKey = GlobalKey<FormState>();
+class _AddCampaignPageState extends State<AddCampaignPage> {
   GlobalKey<FormState> _linkKey = GlobalKey<FormState>();
-  TextEditingController _titleController;
-  TextEditingController _bodyController;
   TextEditingController _linkController;
   bool isLoading = false;
-  File _blogPhoto;
+  File _campaignPhoto;
   String link;
-  String blogPhotoUrl;
-  String blogBody;
-  String blogTitle;
+  String campaignPhotoUrl;
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController();
-    _bodyController = TextEditingController();
     _linkController = TextEditingController();
   }
 
@@ -56,7 +49,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                       width: double.infinity,
                       height: context.dynamicHeight(0.3),
                       color: Colors.red,
-                      child: _blogPhoto == null
+                      child: _campaignPhoto == null
                           ? Center(
                               child: IconButton(
                                 icon: Icon(
@@ -74,7 +67,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                                 showSelectPhotoSheet(context);
                               },
                               child: Image.file(
-                                _blogPhoto,
+                                _campaignPhoto,
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -95,51 +88,12 @@ class _AddBlogPageState extends State<AddBlogPage> {
                         style: context.theme.textTheme.headline5,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          hintText: "Blog Linki",
-                        ),
-                      ),
-                    ),
-                    Form(
-                      key: _titleKey,
-                      child: TextFormField(
-                        minLines: 1,
-                        maxLines: 10,
-                        controller: _titleController,
-                        validator: (value) {
-                          if (value.length < 3) {
-                            return "Başlık en az 3 karakter olmalıdır";
-                          } else {
-                            return null;
-                          }
-                        },
-                        style: context.theme.textTheme.headline5,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          hintText: "Başlık Metni",
+                          hintText: "Kampanya Linki",
                         ),
                       ),
                     ),
                     SizedBox(
                       height: context.dynamicHeight(0.01),
-                    ),
-                    Form(
-                      key: _bodyKey,
-                      child: TextFormField(
-                        controller: _bodyController,
-                        validator: (value) {
-                          if (value.length < 20) {
-                            return "Gövde en az 20 karakter olmalıdır";
-                          } else {
-                            return null;
-                          }
-                        },
-                        minLines: 1,
-                        maxLines: 1000,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                            hintText: "Gövde Metni",
-                            border: OutlineInputBorder()),
-                      ),
                     ),
                   ],
                 ),
@@ -147,7 +101,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
               MaterialButton(
                 color: context.theme.buttonColor,
                 onPressed: () async {
-                  if (_blogPhoto == null) {
+                  if (_campaignPhoto == null) {
                     await PlatformDuyarliAlertDialog(
                       title: "Başarısız",
                       body:
@@ -158,25 +112,23 @@ class _AddBlogPageState extends State<AddBlogPage> {
                     setState(() {
                       isLoading = true;
                     });
-                    blogBody = _bodyController.text;
-                    blogTitle = _titleController.text;
                     link = _linkController.text;
                     //validateler olsun
-                    if (_bodyKey.currentState.validate() &&
-                        _titleKey.currentState.validate() &&
-                        _linkKey.currentState.validate()) {
-                      var blog = Blog(
-                          bodyText: blogBody, title: blogTitle, blogLink: link);
-                      await _viewModel.addBlog(blog).then((value) async {
+                    if (_linkKey.currentState.validate()) {
+                      var campaign = Campaign(campaignLink: link);
+                      await _viewModel
+                          .addCampaign(campaign)
+                          .then((value) async {
                         var id = value;
-                        await _viewModel.uploadBlogImage(id, _blogPhoto);
+                        await _viewModel.uploadCampaignPhoto(
+                            id, _campaignPhoto);
                         print('Başarıyla tamamlandı');
                         setState(() {
                           isLoading = false;
                         });
                         await PlatformDuyarliAlertDialog(
                           mainButtonText: 'Tamam',
-                          body: 'Blog ekleme işlemi başarıyla tamamlandı',
+                          body: 'Kampanya ekleme işlemi başarıyla tamamlandı',
                           title: 'İşlem Başarılı',
                         ).show(context);
                       });
@@ -187,7 +139,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
                     }
                   }
                 },
-                child: Text("Blogu Ekle"),
+                child: Text("Kampanyayı Ekle"),
               )
             ],
           ),
@@ -231,7 +183,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
       });
       var _newPicture = await ImagePicker.pickImage(source: ImageSource.camera);
       if (mounted) {
-        _blogPhoto = File(_newPicture.path);
+        _campaignPhoto = File(_newPicture.path);
         setState(() {
           isLoading = false;
         });
@@ -252,7 +204,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
       var _newPicture =
           await ImagePicker.pickImage(source: ImageSource.gallery);
       if (mounted) {
-        _blogPhoto = File(_newPicture.path);
+        _campaignPhoto = File(_newPicture.path);
 
         setState(() {
           isLoading = false;
@@ -267,7 +219,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
   }
 
   Future<String> _getPhotoLink(BuildContext context) async {
-    if (_blogPhoto != null) {
+    if (_campaignPhoto != null) {
       // var url = await _viewModel.uploadFile(
       //     _viewModel.user.userID, 'blog_photo', _blogPhoto);
       // return url;

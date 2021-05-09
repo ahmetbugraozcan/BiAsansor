@@ -38,6 +38,41 @@ class FirebaseStorageService implements StorageBase {
     } catch (ex) {}
   }
 
+  Future<String> uploadCampaignPhoto(
+      String campaignID, File campaignPhoto) async {
+    try {
+      var url;
+      // var _reference =
+      _storageReference = _firebaseStorage
+          .ref()
+          .child('campaignPhoto')
+          .child(campaignID)
+          .child(campaignID);
+      var uploadTask = _storageReference.putFile(campaignPhoto);
+      await uploadTask.whenComplete(() {
+        return url;
+      });
+
+      // ignore: empty_catches
+    } catch (ex) {}
+  }
+
+  @override
+  Future<String> getCampaignPhotoDownloadLink(String id) async {
+    var url;
+    try {
+      url = await _firebaseStorage
+          .ref()
+          .child('campaignPhoto')
+          .child(id)
+          .child(id)
+          .getDownloadURL();
+      return url;
+    } catch (ex) {
+      debugPrint("Link alınamadı kampanya : " + ex.toString());
+    }
+  }
+
   @override
   Future<String> getBlogPhotoDownloadLink(String id) async {
     var url;

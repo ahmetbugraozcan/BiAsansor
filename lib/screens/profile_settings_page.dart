@@ -647,7 +647,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   void _selectPictureFromGallery() async {
     try {
       var _newPicture =
-          await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+          await ImagePicker.pickImage(source: ImageSource.gallery);
       if (_newPicture != null) {
         setState(() {
           isProfilePhotoChanged = true;
@@ -667,8 +667,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   void _takePhotoFromCamera() async {
     try {
-      var _newPicture =
-          await ImagePicker.platform.pickImage(source: ImageSource.camera);
+      var _newPicture = await ImagePicker.pickImage(source: ImageSource.camera);
       if (_newPicture != null) {
         setState(() {
           isProfilePhotoChanged = true;
