@@ -29,7 +29,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   Widget ascendingText = Text('Fiyata Göre (Önce En Düşük)');
   Widget descendingText = Text('Fiyata Göre (Önce En Yüksek)');
   Widget starPointText = Text('Değerlendirme Puanı');
-  Widget experienceText = Text('Sektördeki Tecrübe');
+  Widget experienceText = Text('Sektöre Başladığı Tarih');
   // Icon initialFilterIcon = Icon(MaterialCommunityIcons.signal_cellular_outline);
   Icon initialFilterIcon;
   Icon ascendingIcon = Icon(MaterialCommunityIcons.sort_ascending);
@@ -143,7 +143,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                         initialFilterValue = value;
                         initialFilterIcon = experienceIcon;
                       });
-                      shipperList.sort((b, a) =>
+                      shipperList.sort((a, b) =>
                           a.workExperience.compareTo(b.workExperience));
                     }
                   },
@@ -286,10 +286,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                               Expanded(
                                                 flex: 3,
                                                 child: Text(
-                                                    'Sektördeki Tecrübe : ' +
+                                                    'Başladığı Tarih : ' +
                                                         shipper.workExperience
-                                                            .toString() +
-                                                        ' Yıl'),
+                                                            .toString()),
                                               ),
                                             ],
                                           ))

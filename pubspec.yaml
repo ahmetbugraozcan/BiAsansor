@@ -52,6 +52,7 @@ dependencies:
   http: ^0.13.1
   flutter_html: ^0.8.2
   webview_flutter: ^2.0.4
+
 #  zefyr:
 #    git:
 #      url: https://github.com/memspace/zefyr.git
@@ -88,6 +89,7 @@ flutter:
      - assets/asansor_100.png
      - assets/biasansor_profile.png
      - assets/whatsapp_logo.png
+     - assets/biasansor_genis_logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

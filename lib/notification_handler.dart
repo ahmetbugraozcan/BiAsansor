@@ -65,11 +65,13 @@ class NotificationHandler {
       await _firebaseMessaging.subscribeToTopic("admin");
     }
 
-    String token = await _firebaseMessaging.getToken();
-    var _currentUser = FirebaseAuth.instance.currentUser;
-    await FirebaseFirestore.instance
-        .doc('tokens/' + _currentUser.uid)
-        .set({'token': token});
+    if (_viewModel.user != null) {
+      String token = await _firebaseMessaging.getToken();
+      var _currentUser = FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance
+          .doc('tokens/' + _currentUser.uid)
+          .set({'token': token});
+    }
 
     //token kullanmamız gerekiyor mu emin değilim admine sub olmuş kullanıcılara bildirim göndersek yeterli bence
 

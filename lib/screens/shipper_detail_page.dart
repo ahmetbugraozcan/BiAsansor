@@ -118,9 +118,8 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                       icon: Icon(MaterialIcons.work),
                                       onPressed: () {}),
                                   Text(
-                                    'Sektördeki Tecrübesi : ' +
-                                        shipper.workExperience.toString() +
-                                        ' Yıl',
+                                    'Sektöre Giriş Tarihi : ' +
+                                        shipper.workExperience.toString(),
                                     style: context.theme.textTheme.subtitle2
                                         .copyWith(
                                             fontWeight: FontWeight.w400,

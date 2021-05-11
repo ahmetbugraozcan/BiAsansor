@@ -803,8 +803,8 @@ class _AddShipperPageState extends State<AddShipperPage> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        helperText: 'Bilinmiyorsa 0 gir',
-                        labelText: 'Asansörcünün deneyimi yıl cinsinden',
+                        labelText:
+                            'Asansörcünün deneyimi yıl cinsinden (Örn 2001)',
                         border: OutlineInputBorder(),
                       ),
                     )),

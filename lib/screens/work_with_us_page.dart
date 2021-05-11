@@ -539,9 +539,9 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                           controller: _experienceController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText: 'Sektördeki deneyiminizi giriniz',
+                            labelText: 'Sektöre başladığınız yılı giriniz',
                             helperText:
-                                'Sektörde aktif olarak çalıştığınız yıl değeri',
+                                'Sektöre başladığınız yıl değeri (Örn 2001)',
                             border: OutlineInputBorder(),
                           ),
                         )),

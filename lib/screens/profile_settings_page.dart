@@ -311,12 +311,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
               isSaved = false;
               if (value != firstUserName) {
                 setState(() {
-                  print("true oldu");
                   isUserNameChanged = true;
                 });
               } else {
                 setState(() {
-                  print("false oldu");
                   isUserNameChanged = false;
                 });
               }
@@ -502,6 +500,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           //   title: 'İşlem Başarılı',
           //   body: 'Telefon Numarası Başarıyla Değiştirildi',
           // ).show(_scaffoldKey.currentContext);
+          firstPhoneNumber = _phoneNumberController.text;
           return true;
         } else {
           // await PlatformDuyarliAlertDialog(
@@ -533,6 +532,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           //   title: 'İşlem Başarılı',
           //   body: 'Kullanıcı Adı Başarıyla Değiştirildi',
           // ).show(_scaffoldKey.currentContext);
+          firstUserName = _userNameController.text;
           return true;
         } else {
           await PlatformDuyarliAlertDialog(
@@ -564,6 +564,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           //   body: 'Konum Başarıyla Değiştirildi.',
           //   mainButtonText: 'Tamam',
           // ).show(_scaffoldKey.currentContext);
+          firstLocation = _locationController.text;
           return true;
         } else {
           await PlatformDuyarliAlertDialog(

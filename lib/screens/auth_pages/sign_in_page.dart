@@ -203,8 +203,8 @@ class _SignInPageState extends State<SignInPage> {
       // height: context.dynamicHeight(0.20),
       // color: Colors.red,
       child: Image.asset(
-        'assets/biasansor_logo.png',
-        scale: 30,
+        'assets/biasansor_genis_logo.png',
+        scale: 24,
       ),
     );
   }
