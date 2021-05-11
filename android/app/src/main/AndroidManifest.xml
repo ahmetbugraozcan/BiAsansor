@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="BiAsansör"
+        android:label="Bi Asansör"
         android:icon="@mipmap/biasansor_logo"
         android:usesCleartextTraffic="true"
         >

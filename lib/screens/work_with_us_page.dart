@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
+import 'package:flutter_biasansor/locator.dart';
 import 'package:flutter_biasansor/model/membership_form.dart';
+import 'package:flutter_biasansor/utils.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_biasansor/widgets/platform_duyarli_alert_dialog.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +20,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
   //----------------------------DEĞİŞKENLER-----------------------------
 
   bool isLoading = false;
+  bool checkBoxValue = false;
   File _profilePhoto;
   String _fullName;
   String _shippingName;
@@ -32,7 +35,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
   List<String> shipperLocations = [];
   bool isLocationFieldsValidated = true;
   var list = <String>[];
-
+  var utils = locator<Utils>();
   //-------------------------------KEYS----------------------------------
   List<GlobalKey<FormState>> _shipperLocationKeys = [];
   final GlobalKey<FormState> _fullNameKey = GlobalKey<FormState>();
@@ -98,25 +101,29 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                         width: context.dynamicWidth(0.4),
                         height: context.dynamicHeight(0.2),
                         child: _profilePhoto == null
-                            ? Image.network(
-                                'https://image.flaticon.com/icons/png/512/3629/3629148.png',
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                                  .expectedTotalBytes !=
-                                              null
-                                          ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                              loadingProgress.expectedTotalBytes
-                                          : null,
-                                    ),
-                                  );
-                                },
-                              )
+                            ? CircleAvatar(
+                                child: Image.asset(
+                                  "assets/asansor_siyah.png",
+                                ),
+                              ) // ? Image.network(
+                            //     'https://image.flaticon.com/icons/png/512/3629/3629148.png',
+                            //     loadingBuilder: (BuildContext context,
+                            //         Widget child,
+                            //         ImageChunkEvent loadingProgress) {
+                            //       if (loadingProgress == null) return child;
+                            //       return Center(
+                            //         child: CircularProgressIndicator(
+                            //           value: loadingProgress
+                            //                       .expectedTotalBytes !=
+                            //                   null
+                            //               ? loadingProgress
+                            //                       .cumulativeBytesLoaded /
+                            //                   loadingProgress.expectedTotalBytes
+                            //               : null,
+                            //         ),
+                            //       );
+                            //     },
+                            //   )
                             : Image.file(_profilePhoto),
                       ),
                     ),
@@ -563,74 +570,231 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                         )),
                   ),
                   //TODO Okudum onaylıyorum metni eklensin
+                  Row(
+                    children: [
+                      Checkbox(
+                          value: checkBoxValue,
+                          onChanged: (value) {
+                            setState(() {
+                              checkBoxValue = value;
+                            });
+                          }),
+                      Flexible(
+                        child: RichText(
+                          text: TextSpan(
+                            style: context.theme.textTheme.bodyText1,
+                            children: <WidgetSpan>[
+                              WidgetSpan(
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return SimpleDialog(
+                                            titlePadding: EdgeInsets.fromLTRB(
+                                                context.dynamicWidth(0.03),
+                                                context.dynamicHeight(0.02),
+                                                context.dynamicWidth(0.03),
+                                                0.0),
+                                            contentPadding:
+                                                context.paddingAllMedium,
+                                            title: Align(
+                                                alignment: Alignment.center,
+                                                child:
+                                                    Text('Üyelik Sözleşmesi')),
+                                            children: [
+                                              Container(
+                                                width: 500,
+                                                height: 250,
+                                                child: Scrollbar(
+                                                  child: ListView(
+                                                    children: [
+                                                      Text(utils
+                                                          .uyelikSozlesmesi()),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: Text("Üyelik Sözleşmesi, ",
+                                      style: context.theme.textTheme.bodyText1
+                                          .copyWith(color: Colors.blue[900])),
+                                ),
+                              ),
+                              WidgetSpan(
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return SimpleDialog(
+                                            titlePadding: EdgeInsets.fromLTRB(
+                                                context.dynamicWidth(0.03),
+                                                context.dynamicHeight(0.02),
+                                                context.dynamicWidth(0.03),
+                                                0.0),
+                                            contentPadding:
+                                                context.paddingAllMedium,
+                                            title: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                    'Gizlilik Sözleşmesi')),
+                                            children: [
+                                              Container(
+                                                width: 500,
+                                                height: 250,
+                                                child: Scrollbar(
+                                                  child: ListView(
+                                                    children: [
+                                                      Text(utils
+                                                          .gizlilikSozlesmesi()),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: Text(
+                                    "Gizlilik Sözleşmesi",
+                                    style: context.theme.textTheme.bodyText1
+                                        .copyWith(color: Colors.blue[900]),
+                                  ),
+                                ),
+                              ),
+                              WidgetSpan(child: Text(' ve ')),
+                              WidgetSpan(
+                                  child: InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return SimpleDialog(
+                                              titlePadding: EdgeInsets.fromLTRB(
+                                                  context.dynamicWidth(0.03),
+                                                  context.dynamicHeight(0.02),
+                                                  context.dynamicWidth(0.03),
+                                                  0.0),
+                                              contentPadding:
+                                                  context.paddingAllMedium,
+                                              title: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                      'Kişisel Verilerin Korunması Sözleşmesi')),
+                                              children: [
+                                                Container(
+                                                  width: 500,
+                                                  height: 250,
+                                                  child: Scrollbar(
+                                                    child: ListView(
+                                                      children: [
+                                                        Text(utils
+                                                            .kisiselVerilerinKorunmasiSozlesmesi())
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: Text(
+                                      "Kişisel Verilerin Korunması Sözleşmesi ",
+                                      style: context.theme.textTheme.bodyText1
+                                          .copyWith(color: Colors.blue[900]),
+                                    ),
+                                  ),
+                                  style: context.theme.textTheme.bodyText1
+                                      .copyWith(color: Colors.blue[900])),
+                              WidgetSpan(
+                                child: Text(
+                                  "hakkındaki aydınlatma formlarını okudum ve kabul ediyorum.",
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   TextButton(
                       onPressed: isLoading
                           ? null
-                          : () async {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              if (_fullNameKey.currentState.validate() &&
-                                  _shippingNameKey.currentState.validate() &&
-                                  _locationsKey.currentState.validate() &&
-                                  _priceKey.currentState.validate() &&
-                                  _maxFloorKey.currentState.validate() &&
-                                  _experienceKey.currentState.validate()) {
-                                try {
-                                  _phoneNumber = _phoneController.text;
-                                  _shippingName = _shippingNameController.text;
-                                  _fullName = _fullNameController.text;
-                                  _shippingName = _shippingNameController.text;
-                                  _floorPrices = _priceController.text;
-                                  _maxFloor =
-                                      int.parse(_maxFloorController.text);
-                                  _experience =
-                                      int.parse(_experienceController.text);
-                                  _aboutUs = _aboutUsController.text ?? "";
-
-                                  var membershipForm = MembershipForm(
-                                      formSendingDate: Timestamp.now(),
-                                      fullName: _fullName,
-                                      shippingName: _shippingName,
-                                      floorPrices: _floorPrices,
-                                      maxFloor: _maxFloor,
-                                      phoneNumber: _phoneNumber,
-                                      experience: _experience,
-                                      aboutUs: _aboutUs,
-                                      locations: shipperLocations,
-                                      photoUrl: photoUrl ??
-                                          'https://image.flaticon.com/icons/png/512/3629/3629148.png');
-                                  await _viewModel.addMembershipFormToDatabase(
-                                      membershipForm);
-                                  //circularprogressindicator görünsün
+                          : checkBoxValue == false
+                              ? null
+                              : () async {
                                   setState(() {
-                                    isLoading = false;
+                                    isLoading = true;
                                   });
-                                  await PlatformDuyarliAlertDialog(
-                                    title: "Başvurunuz alınmıştır.",
-                                    body:
-                                        "Başvurunuz başarılı bir şekilde alınmıştır. En kısa sürede sizinle iletişime geçilecektir",
-                                    mainButtonText: "Tamam",
-                                  ).show(context);
-                                } catch (ex) {
-                                  await PlatformDuyarliAlertDialog(
-                                    title: "Başvurunuz alınamadı.",
-                                    body:
-                                        "Başvurunuz alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin veya bizimle iletişime geçin.",
-                                    mainButtonText: "Tamam",
-                                  ).show(context);
-                                  debugPrint("work with us page hata : " +
-                                      ex.toString());
-                                }
+                                  if (_fullNameKey.currentState.validate() &&
+                                      _shippingNameKey.currentState
+                                          .validate() &&
+                                      _locationsKey.currentState.validate() &&
+                                      _priceKey.currentState.validate() &&
+                                      _maxFloorKey.currentState.validate() &&
+                                      _experienceKey.currentState.validate()) {
+                                    try {
+                                      _phoneNumber = _phoneController.text;
+                                      _shippingName =
+                                          _shippingNameController.text;
+                                      _fullName = _fullNameController.text;
+                                      _shippingName =
+                                          _shippingNameController.text;
+                                      _floorPrices = _priceController.text;
+                                      _maxFloor =
+                                          int.parse(_maxFloorController.text);
+                                      _experience =
+                                          int.parse(_experienceController.text);
+                                      _aboutUs = _aboutUsController.text ?? "";
 
-                                print('validated');
-                              } else {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                print('validasyon başarısız');
-                              }
-                            },
+                                      var membershipForm = MembershipForm(
+                                          formSendingDate: Timestamp.now(),
+                                          fullName: _fullName,
+                                          shippingName: _shippingName,
+                                          floorPrices: _floorPrices,
+                                          maxFloor: _maxFloor,
+                                          phoneNumber: _phoneNumber,
+                                          experience: _experience,
+                                          aboutUs: _aboutUs,
+                                          locations: shipperLocations,
+                                          photoUrl: photoUrl ??
+                                              'https://image.flaticon.com/icons/png/512/3629/3629148.png');
+                                      await _viewModel
+                                          .addMembershipFormToDatabase(
+                                              membershipForm);
+                                      //circularprogressindicator görünsün
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      await PlatformDuyarliAlertDialog(
+                                        title: "Başvurunuz alınmıştır.",
+                                        body:
+                                            "Başvurunuz başarılı bir şekilde alınmıştır. En kısa sürede sizinle iletişime geçilecektir",
+                                        mainButtonText: "Tamam",
+                                      ).show(context);
+                                    } catch (ex) {
+                                      await PlatformDuyarliAlertDialog(
+                                        title: "Başvurunuz alınamadı.",
+                                        body:
+                                            "Başvurunuz alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin veya bizimle iletişime geçin.",
+                                        mainButtonText: "Tamam",
+                                      ).show(context);
+                                      debugPrint("work with us page hata : " +
+                                          ex.toString());
+                                    }
+
+                                    print('validated');
+                                  } else {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    print('validasyon başarısız');
+                                  }
+                                },
                       child: Text('Başvuru Formunu Gönder')),
                 ],
               ),

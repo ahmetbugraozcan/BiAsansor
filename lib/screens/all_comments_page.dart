@@ -48,6 +48,7 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
         oneStarCommentCount++;
       } else {}
     });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Asansör Değerlendirmeleri'),
@@ -150,9 +151,11 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                                             borderRadius:
                                                 BorderRadius.horizontal(
                                                     left: ratingbarRadius)),
-                                        width: fiveStarCommentCount /
-                                            widget.comments.length *
-                                            ratingbarwidth,
+                                        width: fiveStarCommentCount == 0
+                                            ? 0
+                                            : fiveStarCommentCount /
+                                                widget.comments.length *
+                                                ratingbarwidth,
                                         constraints: BoxConstraints(
                                           minWidth: 0,
                                           maxWidth: ratingbarwidth,
@@ -189,9 +192,11 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                                             borderRadius:
                                                 BorderRadius.horizontal(
                                                     left: ratingbarRadius)),
-                                        width: fourStarCommentCount /
-                                            widget.comments.length *
-                                            ratingbarwidth,
+                                        width: fourStarCommentCount == 0
+                                            ? 0
+                                            : fourStarCommentCount /
+                                                widget.comments.length *
+                                                ratingbarwidth,
                                         constraints: BoxConstraints(
                                           minWidth: 0,
                                           maxWidth: ratingbarwidth,
@@ -228,9 +233,11 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                                             borderRadius:
                                                 BorderRadius.horizontal(
                                                     left: ratingbarRadius)),
-                                        width: threeStarCommentCount /
-                                            widget.comments.length *
-                                            ratingbarwidth,
+                                        width: threeStarCommentCount == 0
+                                            ? 0
+                                            : threeStarCommentCount /
+                                                widget.comments.length *
+                                                ratingbarwidth,
                                         constraints: BoxConstraints(
                                           minWidth: 0,
                                           maxWidth: ratingbarwidth,
@@ -267,9 +274,11 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                                             borderRadius:
                                                 BorderRadius.horizontal(
                                                     left: ratingbarRadius)),
-                                        width: twoStarCommentCount /
-                                            widget.comments.length *
-                                            ratingbarwidth,
+                                        width: twoStarCommentCount == 0
+                                            ? 0
+                                            : twoStarCommentCount /
+                                                widget.comments.length *
+                                                ratingbarwidth,
                                         constraints: BoxConstraints(
                                           minWidth: 0,
                                           maxWidth: ratingbarwidth,
@@ -306,9 +315,11 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                                             borderRadius:
                                                 BorderRadius.horizontal(
                                                     left: ratingbarRadius)),
-                                        width: oneStarCommentCount /
-                                            widget.comments.length *
-                                            ratingbarwidth,
+                                        width: oneStarCommentCount == 0
+                                            ? 0
+                                            : oneStarCommentCount /
+                                                widget.comments.length *
+                                                ratingbarwidth,
                                         constraints: BoxConstraints(
                                           minWidth: 0,
                                           maxWidth: ratingbarwidth,

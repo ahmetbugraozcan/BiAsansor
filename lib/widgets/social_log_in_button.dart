@@ -32,6 +32,7 @@ class SocialLoginButton extends StatelessWidget {
       height: height,
       width: width,
       child: MaterialButton(
+        disabledColor: Colors.grey,
         elevation: elevation ?? 1,
         shape: shape ??
             RoundedRectangleBorder(

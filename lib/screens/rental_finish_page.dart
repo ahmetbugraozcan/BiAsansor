@@ -274,14 +274,15 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
                       child: ListView(
                         controller: _scrollController,
                         children: [
-                          Text(
-                              'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                          Text(
-                              'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                          Text(
-                              'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                          Text(
-                              'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
+                          Text("Fiyatlandırma politikamızda seçtiğiniz sonuçlar doğrultusunda size çıkan uygun sonuçta listelenen asansörlerde ki fiyatlandırma tüm şartların normal bir şekilde olduğu zaman karşınıza çıkan bir fiyat tarifesidir." +
+                              "Genellikle bu fiyatlandırmalar üzerinden çok fazla oynama olmamaktadır. Ham ücret üzerinden hesaplanan ücretin artması veya azalmasında birden çok değişken yer almaktadır bunlar:\n\n" +
+                              "-Taşınacak yükün türü ve miktarı\n\n" +
+                              "-Asansörün kullanım süresi\n\n" +
+                              "-Taşıma yapılacak binanın şekli, önündeki engelleri vb. faktörler\n\n" +
+                              "-Taşıma yapılacak adresin uzaklığı ( Şehir merkezindeki bir firmanın ilçeye gitmesi vs.)\n\n" +
+                              "-Asansörün kullanılacağı taraf sayısı\n\n" +
+                              "Bu ve bunun gibi birçok sebepten dolayı fiyatlandırma da artış ve azalışlar söz konusu olmaktadır." +
+                              "Siparişi tamamladıktan sonra size uygun olan firma sizinle iletişime geçecektir.")
                         ],
                       ),
                     ),

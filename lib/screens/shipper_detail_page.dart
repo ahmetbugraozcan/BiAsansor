@@ -61,33 +61,30 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(MaterialCommunityIcons.fire_truck),
-                            Padding(
-                              padding: context.paddingAllLow,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: ShaderMask(
-                                  shaderCallback: (Rect bounds) =>
-                                      RadialGradient(
-                                    radius: 4,
-                                    center: Alignment.topLeft,
-                                    colors: [
-                                      Colors.orangeAccent,
-                                      Colors.deepOrange
-                                    ],
-                                    tileMode: TileMode.mirror,
-                                  ).createShader(bounds),
+                            // Icon(MaterialCommunityIcons.fire_truck),
+                            Image.asset(
+                              "assets/asansor_siyah.png",
+                              scale: 50,
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: context.paddingAllLow,
+                                child: Align(
+                                  alignment: Alignment.center,
                                   child: Text(shipper.name,
                                       style: context.theme.textTheme.headline5
                                           .copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400)),
+                                              fontWeight: FontWeight.w600)),
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Divider(color: Colors.black),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: context.lowValue),
+                          child: Divider(color: Colors.black, height: 1),
+                        ),
                         Padding(
                           padding: context.paddingHorizontalLow,
                           child: Column(
@@ -130,8 +127,12 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                             ],
                           ),
                         ),
-                        Divider(
-                          color: Colors.black,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: context.lowValue),
+                          child: Divider(
+                            color: Colors.black,
+                          ),
                         ),
                         Padding(
                           padding: context.paddingHorizontalLow,
@@ -188,8 +189,12 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                             ],
                           ),
                         ),
-                        Divider(
-                          color: Colors.black,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: context.lowValue),
+                          child: Divider(
+                            color: Colors.black,
+                          ),
                         ),
                         Padding(
                           padding: context.paddingHorizontalLow,
@@ -261,8 +266,12 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                             ),
                           ),
                         ),
-                        Divider(
-                          color: Colors.black,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: context.lowValue),
+                          child: Divider(
+                            color: Colors.black,
+                          ),
                         ),
                         Padding(
                           padding: context.paddingHorizontalLow,
@@ -559,7 +568,46 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                               height: double.infinity,
                               child: MaterialButton(
                                   color: Color(0xFF128021),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return SimpleDialog(
+                                            titlePadding: EdgeInsets.fromLTRB(
+                                                context.dynamicWidth(0.03),
+                                                context.dynamicHeight(0.02),
+                                                context.dynamicWidth(0.03),
+                                                0.0),
+                                            contentPadding:
+                                                context.paddingAllMedium,
+                                            title: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                    'Fiyata Etki Eden Durumlar')),
+                                            children: [
+                                              Container(
+                                                width: 500,
+                                                height: 250,
+                                                child: Scrollbar(
+                                                  child: ListView(
+                                                    children: [
+                                                      Text("Fiyatlandırma politikamızda seçtiğiniz sonuçlar doğrultusunda size çıkan uygun sonuçta listelenen asansörlerde ki fiyatlandırma tüm şartların normal bir şekilde olduğu zaman karşınıza çıkan bir fiyat tarifesidir." +
+                                                          "Genellikle bu fiyatlandırmalar üzerinden çok fazla oynama olmamaktadır. Ham ücret üzerinden hesaplanan ücretin artması veya azalmasında birden çok değişken yer almaktadır bunlar:\n\n" +
+                                                          "-Taşınacak yükün türü ve miktarı\n\n" +
+                                                          "-Asansörün kullanım süresi\n\n" +
+                                                          "-Taşıma yapılacak binanın şekli, önündeki engelleri vb. faktörler\n\n" +
+                                                          "-Taşıma yapılacak adresin uzaklığı ( Şehir merkezindeki bir firmanın ilçeye gitmesi vs.)\n\n" +
+                                                          "-Asansörün kullanılacağı taraf sayısı\n\n" +
+                                                          "Bu ve bunun gibi birçok sebepten dolayı fiyatlandırma da artış ve azalışlar söz konusu olmaktadır." +
+                                                          "Siparişi tamamladıktan sonra size uygun olan firma sizinle iletişime geçecektir."),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  },
                                   child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(

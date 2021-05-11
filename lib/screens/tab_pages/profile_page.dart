@@ -12,6 +12,7 @@ import 'package:flutter_biasansor/screens/show_all_finished_shippings_to_admin.d
 import 'package:flutter_biasansor/screens/show_membership_forms_to_admin.dart';
 
 import 'package:flutter_biasansor/services/firestore_database_service.dart';
+import 'package:flutter_biasansor/utils.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_biasansor/widgets/platform_duyarli_alert_dialog.dart';
 import 'package:flutter_biasansor/widgets/social_log_in_button.dart';
@@ -30,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _isUserEmailVerified;
   Timer _timer;
   bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -127,44 +129,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     buildEmailListTile(_user),
                     buildKonumListTile(_user),
                     buildPhoneNumberListTile(_user),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Spacer(
-                          flex: 14,
-                        ),
-                        Expanded(
-                          flex: 80,
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Image.asset(
-                              "assets/biasansor_profile.png",
-                              scale: 3.5,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 20,
-                          child: InkWell(
-                              onTap: () {
-                                FlutterOpenWhatsapp.sendSingleMessage(
-                                    '905398108199', '');
-                              },
-                              child: Image.asset(
-                                "assets/whatsapp_logo.png",
-                              )),
-                        ),
-                        Spacer(
-                          flex: 14,
-                        ),
-                      ],
-                    ),
+                    SizedBox(height: context.dynamicHeight(0.05)),
+                    buildWhatsappGif()
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  InkWell buildWhatsappGif() {
+    return InkWell(
+      onTap: () {
+        FlutterOpenWhatsapp.sendSingleMessage('${Utils.biasansorNumber}', '');
+      },
+      child: Image.asset(
+        "assets/asansor_profil.gif",
+        scale: 4,
       ),
     );
   }

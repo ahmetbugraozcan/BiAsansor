@@ -194,10 +194,31 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           ),
         ),
         shipperList.length == 0
-            ? Center(
-                child: Icon(
-                  Icons.supervised_user_circle_outlined,
-                  size: 64,
+            ? Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    Expanded(
+                      child: CircleAvatar(
+                        radius: 60,
+                        child: Image.asset(
+                          "assets/asansor.png",
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: context.lowValue),
+                        child: Text(
+                          "BU BÖLGEDE UYGUN ASANSÖR BULUNAMADI",
+                          style: context.theme.textTheme.subtitle2,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                  ],
                 ),
               )
             : Expanded(
@@ -237,25 +258,12 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                         children: [
                                           Align(
                                             alignment: Alignment.center,
-                                            child: ShaderMask(
-                                              shaderCallback: (Rect bounds) =>
-                                                  RadialGradient(
-                                                radius: 4,
-                                                center: Alignment.topLeft,
-                                                colors: [
-                                                  Colors.orangeAccent,
-                                                  Colors.deepOrange
-                                                ],
-                                                tileMode: TileMode.mirror,
-                                              ).createShader(bounds),
-                                              child: Text(shipper.name,
-                                                  maxLines: 2,
-                                                  textAlign: TextAlign.start,
-                                                  style: context
-                                                      .theme.textTheme.headline6
-                                                      .copyWith(
-                                                          color: Colors.white)),
-                                            ),
+                                            child: Text(shipper.name,
+                                                maxLines: 2,
+                                                textAlign: TextAlign.start,
+                                                style: context
+                                                    .theme.textTheme.headline6
+                                                    .copyWith()),
                                           ),
                                           Expanded(
                                               child: Row(
