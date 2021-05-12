@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
+import 'package:flutter_biasansor/locator.dart';
 import 'package:flutter_biasansor/model/order.dart';
 import 'package:flutter_biasansor/model/shipper_mini.dart';
 import 'package:flutter_biasansor/screens/rental_finish_page.dart';
 import 'package:flutter_biasansor/screens/shipper_detail_page.dart';
+import 'package:flutter_biasansor/utils.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +40,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   Icon experienceIcon = Icon(MaterialIcons.work);
   bool isPopupMenuLoading = false;
   List<ShipperMini> shipperList;
+  var utils = locator<Utils>();
   var order;
   @override
   void initState() {
@@ -322,9 +325,10 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                                   isHalfAllowed: true,
                                                   halfFilledIcon:
                                                       Icons.star_half_outlined,
-                                                  initialRating: shipper.rating
-                                                          .floorToDouble() ??
-                                                      0,
+                                                  initialRating:
+                                                      utils.floorNumber(
+                                                              shipper.rating) ??
+                                                          0,
                                                   size: 20,
                                                   filledIcon: Icons.star,
                                                   emptyIcon:
@@ -344,8 +348,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                                   child: Text(
                                                     shipper.rating == null
                                                         ? '0.0'
-                                                        : shipper.rating
-                                                            .floorToDouble()
+                                                        : utils
+                                                            .floorNumber(
+                                                                shipper.rating)
                                                             .toString(),
                                                     style: context.theme
                                                         .textTheme.bodyText1

@@ -85,8 +85,8 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                                   Text(
                                     widget.rating.isNaN
                                         ? '0.0'
-                                        : widget.rating
-                                            .floorToDouble()
+                                        : _utils
+                                            .floorNumber(widget.rating)
                                             .toString(),
                                     style: context.theme.textTheme.headline4
                                         .copyWith(

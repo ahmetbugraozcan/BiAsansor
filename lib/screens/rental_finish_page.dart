@@ -218,6 +218,8 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
                                     shipperPhotoUrl:
                                         widget.shipper.shippingVehiclePhotoUrl,
                                     location: order.address,
+                                    locationsToTransport:
+                                        _allAddressController.text,
                                     transportCount: order.transportationCount,
                                     transportedFloors: order.floorsToTransport);
                                 _viewModel
@@ -355,7 +357,7 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
                       contentPadding: context.paddingAllMedium,
                       title: Align(
                           alignment: Alignment.center,
-                          child: Text('Okuma Metni')),
+                          child: Text('Rezervasyon Sözleşmesi')),
                       children: [
                         Container(
                           width: context.dynamicWidth(1),
@@ -364,16 +366,7 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
                             controller: _scrollController,
                             child: ListView(
                               controller: _scrollController,
-                              children: [
-                                Text(
-                                    'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                                Text(
-                                    'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                                Text(
-                                    'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                                Text(
-                                    'DENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEMEDENEME'),
-                              ],
+                              children: [Text(_utils.kiralamaSozlesmesi())],
                             ),
                           ),
                         )
@@ -382,7 +375,7 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
                   });
             },
             child: Text(
-              ' (Okuma Metni)',
+              ' (Rezervasyon Sözleşmesi)',
               style: context.theme.textTheme.bodyText2
                   .copyWith(color: Colors.blue[900]),
             ),

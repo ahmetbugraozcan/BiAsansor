@@ -74,6 +74,7 @@ class _ShowShippingDetailToAdminState extends State<ShowShippingDetailToAdmin> {
                           buildFloorsToTransportListTile(
                               widget.finishedShipping),
                           buildPriceListTile(widget.finishedShipping),
+                          buildAdressesListTile(widget.finishedShipping),
                           // widget.finishedShipping.location, widget.finishedShipping.transportCount, widget.finishedShipping.transportedFloors,
                         ],
                       ),
@@ -170,6 +171,14 @@ class _ShowShippingDetailToAdminState extends State<ShowShippingDetailToAdmin> {
       leading: Icon(Icons.map),
       title: Text('Kiralama Adresi'),
       subtitle: Text(finishedShipping.location),
+    );
+  }
+
+  ListTile buildAdressesListTile(FinishedShipping finishedShipping) {
+    return ListTile(
+      leading: Icon(Icons.map),
+      title: Text('Taşınacak Adresler'),
+      subtitle: Text(finishedShipping.locationsToTransport),
     );
   }
 

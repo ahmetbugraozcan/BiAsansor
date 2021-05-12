@@ -11,6 +11,7 @@ class FinishedShipping {
   String shipperName;
   int transportCount;
   List<int> transportedFloors;
+  String locationsToTransport;
   int price;
   //listeden kaldırma işlemi için gerekli olan alan
   String reservationID;
@@ -26,6 +27,7 @@ class FinishedShipping {
       @required this.shipperPhotoUrl,
       @required this.location,
       @required this.transportCount,
+      @required this.locationsToTransport,
       @required this.transportedFloors});
   FinishedShipping.fromMap(Map<String, dynamic> map)
       : shipperName = map['shipperName'],
@@ -38,6 +40,7 @@ class FinishedShipping {
         location = map['location'],
         transportCount = map['transportCount'],
         price = map['price'],
+        locationsToTransport = map['locationsToTransport'],
         transportedFloors =
             List<int>.from(map['transportedFloors'] as Iterable<dynamic>)
                 .toList();
@@ -50,6 +53,7 @@ class FinishedShipping {
       'shippingDate': shippingDate,
       'shipperID': shipperID,
       'userID': userID,
+      'locationsToTransport': locationsToTransport,
       'shipperPhotoUrl': shipperPhotoUrl,
       'location': location,
       'transportCount': transportCount,

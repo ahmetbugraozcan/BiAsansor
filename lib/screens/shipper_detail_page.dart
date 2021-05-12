@@ -26,8 +26,6 @@ class ShipperDetailPage extends StatefulWidget {
 
 class _ShipperDetailPageState extends State<ShipperDetailPage>
     with TickerProviderStateMixin {
-  String hakkimizda =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a fringilla ligula. Nulla facilisi. Sed enim risus, lobortis at tortor id, malesuada fermentum erat. Ut eget lectus non neque rhoncus ornare. Aenean vestibulum dui sollicitudin scelerisque congue. Suspendisse potenti. Sed consectetur aliquet metus eget condimentum.';
   bool isTappedAboutUs = false;
   bool isTappedLocations = false;
   Shipper shipper;
@@ -62,10 +60,10 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // Icon(MaterialCommunityIcons.fire_truck),
-                            Image.asset(
-                              "assets/asansor_siyah.png",
-                              scale: 50,
-                            ),
+                            // Image.asset(
+                            //   "assets/asansor_siyah.png",
+                            //   scale: 50,
+                            // ),
                             Flexible(
                               child: Padding(
                                 padding: context.paddingAllLow,
@@ -280,7 +278,10 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                             children: [
                               Flexible(
                                 child: Container(
-                                  height: context.dynamicHeight(0.07),
+                                  // height: context.dynamicHeight(0.07),
+                                  constraints: BoxConstraints(
+                                    minHeight: context.dynamicHeight(0.07),
+                                  ),
                                   width: context.dynamicWidth(0.25),
                                   decoration: BoxDecoration(
                                       color: context.theme.primaryColor,
@@ -309,7 +310,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                     halfFilledIcon: Icons.star_half_outlined,
                                     initialRating: shipper.rating.isNaN
                                         ? 0
-                                        : shipper.rating.floorToDouble(),
+                                        : _utils.floorNumber(shipper.rating),
                                     size: 20,
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
@@ -326,8 +327,8 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                         child: Text(
                                             shipper.rating.isNaN
                                                 ? '0.0'
-                                                : shipper.rating
-                                                    .floorToDouble()
+                                                : _utils
+                                                    .floorNumber(shipper.rating)
                                                     .toString(),
                                             style: context
                                                 .theme.textTheme.bodyText2
@@ -519,32 +520,46 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                                 style: context
                                                     .theme.textTheme.bodyText2,
                                               )
-                                            : RichText(
-                                                textAlign: TextAlign.center,
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: shipper.aboutUsText
-                                                          .substring(
-                                                              0,
-                                                              (shipper.aboutUsText
-                                                                          .length /
-                                                                      3)
-                                                                  .round()),
-                                                      style: context.theme
-                                                          .textTheme.bodyText2,
+                                            : shipper.aboutUsText.length <= 60
+                                                ? Text(
+                                                    shipper.aboutUsText,
+                                                    textAlign: TextAlign.center,
+                                                    style: context.theme
+                                                        .textTheme.bodyText2,
+                                                  )
+                                                : RichText(
+                                                    textAlign: TextAlign.center,
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: shipper
+                                                              .aboutUsText
+                                                              .substring(
+                                                                  0,
+                                                                  (shipper.aboutUsText
+                                                                              .length /
+                                                                          3)
+                                                                      .round()),
+                                                          style: context
+                                                              .theme
+                                                              .textTheme
+                                                              .bodyText2,
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              ' ...devamını oku',
+                                                          style: context
+                                                              .theme
+                                                              .textTheme
+                                                              .bodyText2
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                          .blue[
+                                                                      900]),
+                                                        )
+                                                      ],
                                                     ),
-                                                    TextSpan(
-                                                      text: ' ...devamını oku',
-                                                      style: context.theme
-                                                          .textTheme.bodyText2
-                                                          .copyWith(
-                                                              color: Colors
-                                                                  .blue[900]),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
+                                                  ),
                                       ),
                                     ),
                                   ),

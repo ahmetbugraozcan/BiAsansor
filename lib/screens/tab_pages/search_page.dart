@@ -95,6 +95,7 @@ class _SearchPageState extends State<SearchPage> {
             : null,
         backgroundColor: Colors.white30,
         appBar: AppBar(
+          elevation: 0,
           centerTitle: true,
           title: Text('Asansör Kirala'),
         ),
@@ -116,7 +117,7 @@ class _SearchPageState extends State<SearchPage> {
                       color: Colors.red,
                       width: double.infinity,
                       child: Image.asset(
-                        'assets/asansor_2.jfif',
+                        'assets/bizimle_calisin.png',
                         fit: BoxFit.fill,
                       ),
                     ),

@@ -457,17 +457,13 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
           ],
         ),
-        Divider(),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.01)),
-          child: ListTile(
-            title: Text('Genel',
-                style:
-                    context.theme.textTheme.subtitle2.copyWith(fontSize: 15)),
-            trailing: TextButton(
+        SizedBox(height: context.dynamicHeight(0.1)),
+        Container(
+          child: Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: context.dynamicWidth(0.01)),
+            child: TextButton(
               onPressed: () async {
-                //değeri gönder loadinge al
-                // Navigator.pop(context, true);
                 setState(() {
                   isLoading = true;
                 });
@@ -475,10 +471,19 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   Navigator.pop(context);
                 });
               },
-              child: Text(
-                'Oturumu Kapat',
-                style: context.theme.textTheme.subtitle1
-                    .copyWith(color: Colors.red, fontSize: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.exit_to_app,
+                    color: Colors.red,
+                  ),
+                  Text(
+                    'Oturumu Kapat',
+                    style: context.theme.textTheme.subtitle1
+                        .copyWith(color: Colors.red, fontSize: 15),
+                  ),
+                ],
               ),
             ),
           ),
