@@ -65,7 +65,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
   TextEditingController _maxFloorController;
   TextEditingController _experienceController;
   TextEditingController _aboutUsController;
-
+  // final _utils = locator<Utils>();
   //-------------------------------CONTROLLERS----------------------------------
   @override
   void initState() {
@@ -86,7 +86,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
     var _viewModel = Provider.of<ViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('BiAsansör - Bizimle Çalışın'),
+        title: Text('Bi Asansör - Bizimle Çalışın'),
       ),
       body: Stack(
         children: [
@@ -303,7 +303,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                                         return allLocations ==
                                                                 null
                                                             ? FutureBuilder(
-                                                                future: _viewModel
+                                                                future: utils
                                                                     .getAllLocations(),
                                                                 builder: (BuildContext
                                                                         context,
@@ -600,8 +600,8 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                                 context.paddingAllMedium,
                                             title: Align(
                                                 alignment: Alignment.center,
-                                                child:
-                                                    Text('Üyelik Sözleşmesi')),
+                                                child: Text(
+                                                    'Firma Kayıt Sözleşmesi')),
                                             children: [
                                               Container(
                                                 width: 500,
@@ -610,7 +610,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                                   child: ListView(
                                                     children: [
                                                       Text(utils
-                                                          .uyelikSozlesmesi()),
+                                                          .firmaKayitSozlesmesi()),
                                                     ],
                                                   ),
                                                 ),
@@ -619,102 +619,21 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                           );
                                         });
                                   },
-                                  child: Text("Üyelik Sözleşmesi, ",
+                                  child: Text("Firma Kayıt Sözleşmesi",
                                       style: context.theme.textTheme.bodyText1
                                           .copyWith(color: Colors.blue[900])),
                                 ),
                               ),
                               WidgetSpan(
-                                child: InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return SimpleDialog(
-                                            titlePadding: EdgeInsets.fromLTRB(
-                                                context.dynamicWidth(0.03),
-                                                context.dynamicHeight(0.02),
-                                                context.dynamicWidth(0.03),
-                                                0.0),
-                                            contentPadding:
-                                                context.paddingAllMedium,
-                                            title: Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                    'Gizlilik Sözleşmesi')),
-                                            children: [
-                                              Container(
-                                                width: 500,
-                                                height: 250,
-                                                child: Scrollbar(
-                                                  child: ListView(
-                                                    children: [
-                                                      Text(utils
-                                                          .gizlilikSozlesmesi()),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: Text(
-                                    "Gizlilik Sözleşmesi",
-                                    style: context.theme.textTheme.bodyText1
-                                        .copyWith(color: Colors.blue[900]),
-                                  ),
+                                child: Text(
+                                  " hakkındaki aydınlatma formunu",
                                 ),
                               ),
-                              WidgetSpan(child: Text(' ve ')),
-                              WidgetSpan(
-                                  child: InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return SimpleDialog(
-                                              titlePadding: EdgeInsets.fromLTRB(
-                                                  context.dynamicWidth(0.03),
-                                                  context.dynamicHeight(0.02),
-                                                  context.dynamicWidth(0.03),
-                                                  0.0),
-                                              contentPadding:
-                                                  context.paddingAllMedium,
-                                              title: Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                      'Kişisel Verilerin Korunması Sözleşmesi')),
-                                              children: [
-                                                Container(
-                                                  width: 500,
-                                                  height: 250,
-                                                  child: Scrollbar(
-                                                    child: ListView(
-                                                      children: [
-                                                        Text(utils
-                                                            .kisiselVerilerinKorunmasiSozlesmesi())
-                                                      ],
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            );
-                                          });
-                                    },
-                                    child: Text(
-                                      "Kişisel Verilerin Korunması Sözleşmesi ",
-                                      style: context.theme.textTheme.bodyText1
-                                          .copyWith(color: Colors.blue[900]),
-                                    ),
-                                  ),
-                                  style: context.theme.textTheme.bodyText1
-                                      .copyWith(color: Colors.blue[900])),
                               WidgetSpan(
                                 child: Text(
-                                  "hakkındaki aydınlatma formlarını okudum ve kabul ediyorum.",
+                                  "okudum ve kabul ediyorum.",
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),

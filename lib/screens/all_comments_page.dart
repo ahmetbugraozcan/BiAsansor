@@ -8,8 +8,12 @@ import 'package:rating_bar/rating_bar.dart';
 class AllCommentsPage extends StatefulWidget {
   final List<Comment> comments;
   final double rating;
+  final String shipperName;
   const AllCommentsPage(
-      {Key key, @required this.comments, @required this.rating})
+      {Key key,
+      @required this.comments,
+      @required this.rating,
+      @required this.shipperName})
       : super(key: key);
   @override
   _AllCommentsPageState createState() => _AllCommentsPageState();
@@ -51,7 +55,7 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Asansör Değerlendirmeleri'),
+        title: Text('Firma Yorumları'),
       ),
       body: ListView(
         children: [
@@ -64,7 +68,7 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                 Padding(
                   padding: context.paddingAllLow,
                   child: Text(
-                    'Asansör Değerlendirmeleri',
+                    '${widget.shipperName} Yorumları',
                     style: context.theme.textTheme.headline6
                         .copyWith(fontSize: 16),
                   ),

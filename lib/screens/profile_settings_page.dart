@@ -457,7 +457,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
           ],
         ),
-        SizedBox(height: context.dynamicHeight(0.1)),
+        // SizedBox(height: context.dynamicHeight(0.1)),
         Container(
           child: Padding(
             padding:

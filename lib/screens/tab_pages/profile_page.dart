@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
+import 'package:flutter_biasansor/errors.dart';
 import 'package:flutter_biasansor/locator.dart';
 import 'package:flutter_biasansor/model/useracc.dart';
 import 'package:flutter_biasansor/screens/notifications_page.dart';
@@ -89,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
           buildSettingsButton(),
         ],
         title: Text(
-          'Profilim',
+          'Profil',
           style: context.theme.textTheme.headline5,
         ),
       ),
@@ -129,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     buildEmailListTile(_user),
                     buildKonumListTile(_user),
                     buildPhoneNumberListTile(_user),
-                    SizedBox(height: context.dynamicHeight(0.05)),
+                    // SizedBox(height: context.dynamicHeight(0.01)),
                     buildWhatsappGif()
                   ],
                 ),
@@ -238,22 +239,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  MaterialButton buildLogOutButton(BuildContext context) {
-    return MaterialButton(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(24))),
-      color: context.theme.buttonColor,
-      onPressed: () {},
-      child: Text(
-        'Çıkış Yap',
-        style: context.theme.textTheme.headline6.copyWith(
-          fontWeight: FontWeight.w400,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
   Widget buildUserAvatar(BuildContext context, UserAcc _user) {
     return AspectRatio(
       aspectRatio: 1,
@@ -297,7 +282,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         title: Text(
-          'Emailiniz doğrulanmıştır.',
+          'E-Posta Adresiniz Doğrulanmıştır.',
           style:
               context.theme.textTheme.bodyText2.copyWith(color: Colors.white),
         ),
@@ -311,13 +296,23 @@ class _ProfilePageState extends State<ProfilePage> {
       color: Colors.red,
       child: ListTile(
         onTap: () async {
-          await _viewModel.sendEmailVerification();
-          await PlatformDuyarliAlertDialog(
-            mainButtonText: 'Tamam',
-            title: 'Doğrulama maili gönderildi',
-            body:
-                '${_viewModel.user.email} adresine doğrulama e-postası gönderdik. Spam kutunuzu kontrol etmeyi unutmayın.',
-          ).show(context);
+          try {
+            await _viewModel.sendEmailVerification();
+            print("Buradayuız");
+            await PlatformDuyarliAlertDialog(
+              mainButtonText: 'Tamam',
+              title: 'Doğrulama e-postası gönderildi',
+              body:
+                  '${_viewModel.user.email} adresine doğrulama e-postası gönderdik. Spam kutunuzu kontrol etmeyi unutmayın.',
+            ).show(context);
+          } on FirebaseAuthException catch (ex) {
+            debugPrint("Hata : " + ex.toString());
+            await PlatformDuyarliAlertDialog(
+              mainButtonText: 'Tamam',
+              title: 'E-posta gönderilirken hata',
+              body: Errors.showError(ex.code),
+            ).show(context);
+          }
         },
         leading: Container(
           decoration: BoxDecoration(
@@ -330,7 +325,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         title: Text(
-          'Email henüz doğrulanmamış.',
+          'E-posta Adresiniz Henüz Doğrulanmamıştır.',
           style:
               context.theme.textTheme.bodyText2.copyWith(color: Colors.white),
         ),

@@ -62,7 +62,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     order = widget.order;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bi Asansör'),
+        title: Text('Arama Sonuçları'),
       ),
       body: buildSearchResultsBody(context, _viewModel, order),
     );
@@ -279,7 +279,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                               Expanded(
                                                 flex: 3,
                                                 child: Text(
-                                                    'Çıkabildiği Kat Sayısı : ' +
+                                                    'Çıkabildiği Kat Sayısı: ' +
                                                         shipper.maxFloor
                                                             .toString() +
                                                         ' Kat'),
@@ -297,7 +297,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                               Expanded(
                                                 flex: 3,
                                                 child: Text(
-                                                    'Başladığı Tarih : ' +
+                                                    'Başladığı Tarih: ' +
                                                         shipper.workExperience
                                                             .toString()),
                                               ),
@@ -337,7 +337,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                             flex: 5,
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: Colors.grey.shade400,
+                                                color:
+                                                    context.theme.primaryColor,
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(12)),
                                               ),
@@ -377,7 +378,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                             Flexible(
                                                 flex: 2,
                                                 child: Text(
-                                                    'Tahmini Kiralama Ücreti : ')),
+                                                    'Tahmini Kiralama Ücreti: ')),
                                             Flexible(
                                               child: Container(
                                                 width: 60,

@@ -55,23 +55,36 @@ class _AddCommentPageState extends State<AddCommentPage> {
                   commentDate: Timestamp.now(),
                   commentText: commentText);
               // await Future.wait([_viewModel.addComment(widget.shipper, comment, ratingobj) ]);
-              await _viewModel
-                  .addComment(widget.shipper, comment, ratingobj,
-                      widget.shipping.reservationID)
-                  .then((value) {
-                if (value) {
-                  PlatformDuyarliAlertDialog(
-                    willPopScope: false,
-                    title: 'Yorum gönderildi',
-                    body: 'Yorumunuz başarıyla gönderildi',
-                    mainButtonText: 'Tamam',
-                    mainButtonOnTap: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context, true);
-                    },
-                  ).show(context);
-                }
-              });
+              try {
+                await _viewModel
+                    .addComment(widget.shipper, comment, ratingobj,
+                        widget.shipping.reservationID)
+                    .then((value) {
+                  if (value) {
+                    PlatformDuyarliAlertDialog(
+                      willPopScope: false,
+                      title: 'Yorum gönderildi',
+                      body: 'Yorumunuz başarıyla gönderildi',
+                      mainButtonText: 'Tamam',
+                      mainButtonOnTap: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context, true);
+                      },
+                    ).show(context);
+                  }
+                });
+              } catch (ex) {
+                print("hata : " + ex.toString());
+                await PlatformDuyarliAlertDialog(
+                  willPopScope: false,
+                  title: 'Yorum gönderilemedi',
+                  body: 'Yorumunuz gönderilirken bir hata oluştu',
+                  mainButtonText: 'Tamam',
+                  mainButtonOnTap: () {
+                    Navigator.pop(context);
+                  },
+                ).show(context);
+              }
             }
           },
           color: context.theme.buttonColor,
@@ -83,21 +96,23 @@ class _AddCommentPageState extends State<AddCommentPage> {
         ),
       ),
       appBar: AppBar(
-        title: Text('Asansör Değerlendirmesi'),
+        title: Text('Firma Değerlendirmesi'),
       ),
       body: ListView(
         children: [
           Row(
             children: [
               Expanded(
-                child: ListTile(
-                  leading:
-                      Image.network(widget.shipper.shippingVehiclePhotoUrl),
-                  title: Text(
-                    widget.shipper.name,
-                    style: context.theme.textTheme.headline6,
+                child: Padding(
+                  padding: context.paddingAllLow,
+                  child: ListTile(
+                    leading:
+                        Image.network(widget.shipper.shippingVehiclePhotoUrl),
+                    title: Text(
+                      widget.shipper.name,
+                      style: context.theme.textTheme.headline6,
+                    ),
                   ),
-                  subtitle: Text(widget.shipper.locations.toString()),
                 ),
               ),
             ],
@@ -108,7 +123,7 @@ class _AddCommentPageState extends State<AddCommentPage> {
           ),
           Center(
               child: Text(
-            'Asansörü aşağıdan puanlayabilir ve yorum yazabilirsiniz',
+            'Firma ile ilgili deneyimlerinizi puanlayabilir ve yorum yazabilirsiniz',
             textAlign: TextAlign.center,
             style: context.theme.textTheme.headline6.copyWith(fontSize: 16),
           )),

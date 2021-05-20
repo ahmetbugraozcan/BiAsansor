@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
+import 'package:flutter_biasansor/locator.dart';
 import 'package:flutter_biasansor/model/shipper.dart';
+import 'package:flutter_biasansor/utils.dart';
 import 'package:flutter_biasansor/viewmodel/viewmodel.dart';
 import 'package:flutter_biasansor/widgets/platform_duyarli_alert_dialog.dart';
 import 'package:provider/provider.dart';
@@ -69,6 +71,7 @@ class _AddShipperPageState extends State<AddShipperPage> {
   int experience;
   String phoneNumber;
   String aboutUsText;
+  final _utils = locator<Utils>();
   @override
   void initState() {
     super.initState();
@@ -247,7 +250,7 @@ class _AddShipperPageState extends State<AddShipperPage> {
                                                   builder: (context) {
                                                     return allLocations == null
                                                         ? FutureBuilder(
-                                                            future: _viewModel
+                                                            future: _utils
                                                                 .getAllLocations(),
                                                             builder: (BuildContext
                                                                     context,

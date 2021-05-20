@@ -37,6 +37,7 @@ class _AddBlogPageState extends State<AddBlogPage> {
   Widget build(BuildContext context) {
     var _viewModel = Provider.of<ViewModel>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('BiAsansör - Blog Ekle'),
       ),

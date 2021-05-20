@@ -96,7 +96,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                           MaterialCommunityIcons.home_modern),
                                       onPressed: () {}),
                                   Text(
-                                    'Çıkabileceği En Yüksek Kat : ' +
+                                    'Çıkabileceği En Yüksek Kat: ' +
                                         shipper.maxFloor.toString() +
                                         ' Kat',
                                     style: context.theme.textTheme.subtitle2
@@ -113,7 +113,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                       icon: Icon(MaterialIcons.work),
                                       onPressed: () {}),
                                   Text(
-                                    'Sektöre Giriş Tarihi : ' +
+                                    'Sektöre Giriş Tarihi: ' +
                                         shipper.workExperience.toString(),
                                     style: context.theme.textTheme.subtitle2
                                         .copyWith(
@@ -142,7 +142,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
-                                      'Tek Taraflı Ücret : ${shipper.shippingPrice},00 ₺',
+                                      'Tek Taraflı Ücret: ${shipper.shippingPrice},00 ₺',
                                       style: context.theme.textTheme.subtitle1
                                           .copyWith(
                                               color: Colors.green,
@@ -206,12 +206,17 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Hizmet Bölgeleri',
-                                  style: context.theme.textTheme.subtitle1
-                                      .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.blue[900]),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: context.veryLowValue,
+                                      bottom: context.veryLowValue),
+                                  child: Text(
+                                    'Hizmet Bölgeleri',
+                                    style: context.theme.textTheme.subtitle1
+                                        .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: context.theme.primaryColor),
+                                  ),
                                 ),
                                 AnimatedSize(
                                     duration: const Duration(milliseconds: 5),
@@ -241,12 +246,23 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                                 ],
                                               ),
                                               !isTappedLocations && index == 3
-                                                  ? Text("Devamını Gör",
-                                                      style: context.theme
-                                                          .textTheme.bodyText1
-                                                          .copyWith(
-                                                              color: Colors
-                                                                  .blue[900]))
+                                                  ? Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.campaign,
+                                                          color: Colors
+                                                              .transparent,
+                                                        ),
+                                                        Text("Devamını Gör",
+                                                            style: context
+                                                                .theme
+                                                                .textTheme
+                                                                .bodyText1),
+                                                      ],
+                                                    )
                                                   : SizedBox(),
                                             ],
                                           );
@@ -347,6 +363,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                           builder: (context) => AllCommentsPage(
                                                 comments: shipper.comments,
                                                 rating: shipper.rating,
+                                                shipperName: shipper.name,
                                               ))),
                                   child: Text(
                                     '${shipper.comments.length} Yorum',
@@ -373,7 +390,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Hizmet Değerlendirmeleri',
+                                      '${shipper.name} Yorumları',
                                       style: context.theme.textTheme.bodyText2
                                           .copyWith(
                                               fontWeight: FontWeight.w600),
@@ -386,6 +403,7 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                                   AllCommentsPage(
                                                     comments: shipper.comments,
                                                     rating: shipper.rating,
+                                                    shipperName: shipper.name,
                                                   ))),
                                       child: Text(
                                           'Tümünü Gör (${shipper.comments.length})'),

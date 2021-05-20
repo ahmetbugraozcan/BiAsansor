@@ -164,8 +164,7 @@ class _SearchPageState extends State<SearchPage> {
                                     builder: (context) {
                                       return allLocations == null
                                           ? FutureBuilder(
-                                              future:
-                                                  _viewModel.getAllLocations(),
+                                              future: _utils.getAllLocations(),
                                               builder: (BuildContext context,
                                                   AsyncSnapshot snapshot) {
                                                 if (snapshot.hasData) {
@@ -574,7 +573,7 @@ class _SearchPageState extends State<SearchPage> {
                                                       Navigator.pop(context);
                                                     }
                                                   },
-                                                  child: Text('TIKLA'))
+                                                  child: Text('Tamamla'))
                                             ],
                                           );
                                         });
@@ -656,7 +655,7 @@ class _SearchPageState extends State<SearchPage> {
                       },
                       buttonColor: context.theme.buttonColor,
                       buttonText: Text(
-                        'Uygun Asansörleri Ara',
+                        'Uygun Asansörleri Bul',
                         style: context.theme.textTheme.button
                             .copyWith(color: Colors.white, fontSize: 18),
                       )),

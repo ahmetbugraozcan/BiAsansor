@@ -15,6 +15,8 @@ class Errors {
         return 'Zayıf Parola';
       case 'wrong-password':
         return 'Hatalı Parola Girdiniz. Lütfen Tekrar Deneyin.';
+      case 'too-many-requests':
+        return 'Lütfen yeniden denemeden önce bir süre bekleyiniz.';
       default:
         return 'Bir hata oluştu...';
     }

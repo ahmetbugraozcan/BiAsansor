@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               )
             : null,
         appBar: AppBar(
-          title: Text("BiAsansör - Kampanyalar"),
+          title: Text("Kampanyalar"),
         ),
         body: RefreshIndicator(
           onRefresh: () async {

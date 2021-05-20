@@ -266,7 +266,7 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
                 contentPadding: context.paddingAllMedium,
                 title: Align(
                     alignment: Alignment.center,
-                    child: Text('Fiyata Etki Eden Durumlar')),
+                    child: Text('Fiyatlandırmaya Etki Eden Durumlar')),
                 children: [
                   Container(
                     width: 500,
@@ -304,9 +304,10 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
             onPressed: null,
           )),
           Flexible(
+            flex: 5,
             child: Text(
-              'Fiyata Etki Eden Durumlar',
-              style: context.theme.textTheme.bodyText2
+              'Fiyatlandırmaya Etki Eden Durumlar',
+              style: context.theme.textTheme.bodyText1
                   .copyWith(color: Colors.blue[900]),
             ),
           )
@@ -338,49 +339,110 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
               });
             }),
         Flexible(
-          child: Text(
-            'Okudum Onaylıyorum',
-          ),
-        ),
-        Flexible(
-          child: InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return SimpleDialog(
-                      titlePadding: EdgeInsets.fromLTRB(
-                          context.dynamicWidth(0.03),
-                          context.dynamicHeight(0.02),
-                          context.dynamicWidth(0.03),
-                          0.0),
-                      contentPadding: context.paddingAllMedium,
-                      title: Align(
-                          alignment: Alignment.center,
-                          child: Text('Rezervasyon Sözleşmesi')),
-                      children: [
-                        Container(
-                          width: context.dynamicWidth(1),
-                          height: context.dynamicHeight(0.35),
-                          child: Scrollbar(
-                            controller: _scrollController,
-                            child: ListView(
-                              controller: _scrollController,
-                              children: [Text(_utils.kiralamaSozlesmesi())],
-                            ),
-                          ),
-                        )
-                      ],
-                    );
-                  });
-            },
-            child: Text(
-              ' (Rezervasyon Sözleşmesi)',
-              style: context.theme.textTheme.bodyText2
-                  .copyWith(color: Colors.blue[900]),
+          child: RichText(
+            text: TextSpan(
+              style: context.theme.textTheme.bodyText1,
+              children: <WidgetSpan>[
+                WidgetSpan(
+                  child: InkWell(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SimpleDialog(
+                              titlePadding: EdgeInsets.fromLTRB(
+                                  context.dynamicWidth(0.03),
+                                  context.dynamicHeight(0.02),
+                                  context.dynamicWidth(0.03),
+                                  0.0),
+                              contentPadding: context.paddingAllMedium,
+                              title: Align(
+                                  alignment: Alignment.center,
+                                  child: Text('Kiralama Sözleşmesi')),
+                              children: [
+                                Container(
+                                  width: 500,
+                                  height: 250,
+                                  child: Scrollbar(
+                                    child: ListView(
+                                      children: [
+                                        Text(_utils.kiralamaSozlesmesi()),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            );
+                          });
+                    },
+                    child: Text("Kiralama Sözleşmesi",
+                        style: context.theme.textTheme.bodyText1
+                            .copyWith(color: Colors.blue[900])),
+                  ),
+                ),
+                WidgetSpan(
+                  child: Text(
+                    " hakkındaki aydınlatma formunu",
+                  ),
+                ),
+                WidgetSpan(
+                  child: Text(
+                    "okudum ve kabul ediyorum.",
+                  ),
+                )
+                // WidgetSpan(
+                //   child: Text(
+                //     "okudum ve kabul ediyorum.",
+                //   ),
+                // )
+              ],
             ),
           ),
         )
+        // Flexible(
+        //   child: InkWell(
+        //     onTap: () {
+        //       showDialog(
+        //           context: context,
+        //           builder: (context) {
+        //             return SimpleDialog(
+        //               titlePadding: EdgeInsets.fromLTRB(
+        //                   context.dynamicWidth(0.03),
+        //                   context.dynamicHeight(0.02),
+        //                   context.dynamicWidth(0.03),
+        //                   0.0),
+        //               contentPadding: context.paddingAllMedium,
+        //               title: Align(
+        //                   alignment: Alignment.center,
+        //                   child: Text('Rezervasyon Sözleşmesi')),
+        //               children: [
+        //                 Container(
+        //                   width: context.dynamicWidth(1),
+        //                   height: context.dynamicHeight(0.35),
+        //                   child: Scrollbar(
+        //                     controller: _scrollController,
+        //                     child: ListView(
+        //                       controller: _scrollController,
+        //                       children: [Text(_utils.kiralamaSozlesmesi())],
+        //                     ),
+        //                   ),
+        //                 )
+        //               ],
+        //             );
+        //           });
+        //     },
+        //     child: Text(
+        //       ' Rezervasyon Sözleşmesi',
+        //       style: context.theme.textTheme.bodyText2
+        //           .copyWith(color: Colors.blue[900]),
+        //     ),
+        //   ),
+        // ),
+        // Flexible(
+        //   child: Text(
+        //     ' hakkındaki aydınlatma formunu okudum ve kabul ediyorum.',
+        //   ),
+        // ),
       ],
     );
   }

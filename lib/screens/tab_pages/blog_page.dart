@@ -40,7 +40,7 @@ class _BlogPageState extends State<BlogPage> {
             )
           : null,
       appBar: AppBar(
-        title: Text('BiAsansör - Blog'),
+        title: Text('Blog'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {

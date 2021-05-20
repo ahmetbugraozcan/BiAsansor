@@ -92,186 +92,205 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
+  Widget buildListEmptyWidget() {
+    return ListView(
+      children: [
+        // SizedBox(height: 250),
+        SizedBox(height: context.dynamicHeight(0.3)),
+        Center(
+          child: CircleAvatar(
+            radius: 60,
+            child: Image.asset("assets/asansor.png"),
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: context.lowValue),
+            child: Text(
+              "HENÜZ BİR BİLDİRİMİNİZ YOK",
+              style: context.theme.textTheme.subtitle2,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget buildNotificationPageBody() {
-    return ListView.builder(
-        controller: _scrollController,
-        physics: AlwaysScrollableScrollPhysics(),
-        itemCount: finishedShippings.length,
-        itemBuilder: (context, index) {
-          var finishedShipping = finishedShippings[index];
-          return Card(
-            child: Column(
-              children: [
-                Row(
+    return finishedShippings.isEmpty
+        ? buildListEmptyWidget()
+        : ListView.builder(
+            controller: _scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
+            itemCount: finishedShippings.length,
+            itemBuilder: (context, index) {
+              var finishedShipping = finishedShippings[index];
+              return Card(
+                child: Column(
                   children: [
-                    Padding(
-                      padding: context.paddingAllLow,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          radius: 60,
-                          child:
-                              Image.network(finishedShipping.shipperPhotoUrl),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Padding(
+                            padding: context.paddingAllLow,
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 70,
+                                child: Image.network(
+                                    finishedShipping.shipperPhotoUrl),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    // Padding(
-                    //   padding: context.paddingAllLow,
-                    //   child: ClipRRect(
-                    //     child: Container(
-                    //       height: 120.0,
-                    //       width: 120.0,
-                    //       color: Color(0xffFF0E58),
-                    //       child: Icon(Icons.volume_up,
-                    //           color: Colors.white, size: 50.0),
-                    //     ),
-                    //   ),
-                    // ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ShaderMask(
-                            shaderCallback: (Rect bounds) => RadialGradient(
-                              radius: 4,
-                              center: Alignment.topLeft,
-                              colors: [Colors.orangeAccent, Colors.deepOrange],
-                              tileMode: TileMode.mirror,
-                            ).createShader(bounds),
-                            child: Text(finishedShipping.shipperName,
-                                style: context.theme.textTheme.headline6
-                                    .copyWith(color: Colors.white)),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(Icons.location_city, size: 14),
-                                ),
-                                TextSpan(
-                                    text:
-                                        ' Bölge : ' + finishedShipping.location,
-                                    style: context.theme.textTheme.bodyText2),
-                              ],
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(Icons.calendar_today, size: 14),
-                                ),
-                                TextSpan(
-                                    text: ' Taşıma Sayısı : ' +
-                                        finishedShipping.transportCount
-                                            .toString() +
-                                        ' Kez',
-                                    style: context.theme.textTheme.bodyText2),
-                              ],
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(Icons.sort, size: 14),
-                                ),
-                                TextSpan(
-                                    text: ' Taşınan Katlar : ' +
-                                        printFloors(
-                                            finishedShipping.transportedFloors),
-                                    style: context.theme.textTheme.bodyText2),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          //Order oluşturup kendimiz gidebiliriz
-                          var order = Order(
-                              address: finishedShipping.location,
-                              // dateAndTime: finishedShipping.shippingDate,
-                              transportationCount:
-                                  finishedShipping.transportCount,
-                              floorsToTransport:
-                                  finishedShipping.transportedFloors);
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => ShipperDetailPage(
-                                      shipperID: finishedShipping.shipperID,
-                                      order: order)));
-                        },
-                        style: ButtonStyle(),
-                        child: Text(
-                          'Firma Detay',
-                          style: context.theme.textTheme.button
-                              .copyWith(color: Colors.black),
+                        SizedBox(
+                          width: context.dynamicWidth(0.08),
                         ),
-                      ),
+                        Flexible(
+                          child: Padding(
+                            padding: context.paddingAllLow,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(finishedShipping.shipperName,
+                                    style: context.theme.textTheme.headline6),
+                                SizedBox(
+                                  height: context.dynamicHeight(0.01),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      WidgetSpan(
+                                        child:
+                                            Icon(Icons.location_city, size: 14),
+                                      ),
+                                      TextSpan(
+                                          text: ' Bölge: ' +
+                                              finishedShipping.location,
+                                          style: context
+                                              .theme.textTheme.bodyText2),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: context.dynamicHeight(0.01)),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      WidgetSpan(
+                                        child: Icon(Icons.calendar_today,
+                                            size: 14),
+                                      ),
+                                      TextSpan(
+                                          text: ' Taşıma Sayısı: ' +
+                                              finishedShipping.transportCount
+                                                  .toString() +
+                                              ' Kez',
+                                          style: context
+                                              .theme.textTheme.bodyText2),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: context.dynamicHeight(0.01)),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      WidgetSpan(
+                                        child: Icon(Icons.sort, size: 14),
+                                      ),
+                                      TextSpan(
+                                          text: ' Taşınan Katlar: ' +
+                                              printFloors(finishedShipping
+                                                  .transportedFloors),
+                                          style: context
+                                              .theme.textTheme.bodyText2),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () async {
-                          var _viewModel =
-                              Provider.of<ViewModel>(context, listen: false);
-                          setState(() {
-                            isLoading = true;
-                          });
-                          await _viewModel
-                              .getShipperDetails(finishedShipping.shipperID)
-                              .then((shipper) {
-                            Navigator.push(
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              //Order oluşturup kendimiz gidebiliriz
+                              var order = Order(
+                                  address: finishedShipping.location,
+                                  // dateAndTime: finishedShipping.shippingDate,
+                                  transportationCount:
+                                      finishedShipping.transportCount,
+                                  floorsToTransport:
+                                      finishedShipping.transportedFloors);
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => ShipperDetailPage(
+                                          shipperID: finishedShipping.shipperID,
+                                          order: order)));
+                            },
+                            style: ButtonStyle(),
+                            child: Text(
+                              'Firma Detay',
+                              style: context.theme.textTheme.button
+                                  .copyWith(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () async {
+                              var _viewModel = Provider.of<ViewModel>(context,
+                                  listen: false);
+                              setState(() {
+                                isLoading = true;
+                              });
+                              await _viewModel
+                                  .getShipperDetails(finishedShipping.shipperID)
+                                  .then((shipper) {
+                                Navigator.push(
                                     _scaffoldKey.currentContext,
                                     CupertinoPageRoute(
                                         builder: (context) => AddCommentPage(
                                             shipper: shipper,
-                                            shipping: finishedShipping)))
-                                .then((value) {
-                              if (value == true) {
-                                setState(() {
-                                  //burası normalde finishedshippingsi null yapıyordu tekrar veritabanına gidiliyordu şimdi bu değeri direk siliyor
-                                  finishedShippings.remove(finishedShipping);
+                                            shipping: finishedShipping))).then(
+                                    (value) {
+                                  if (value == true) {
+                                    setState(() {
+                                      //burası normalde finishedshippingsi null yapıyordu tekrar veritabanına gidiliyordu şimdi bu değeri direk siliyor
+                                      finishedShippings
+                                          .remove(finishedShipping);
+                                    });
+                                  }
                                 });
-                              }
-                            });
-                          }).then((value) {
-                            setState(() {
-                              isLoading = false;
-                            });
-                          });
-                          //shipper lazım diyor önce id ile shipperi getir sonra shipperi yolla mini mi detailed mi emin değilim
-                        },
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.orange)),
-                        child: Text(
-                          'Yorum Yap',
-                          style: context.theme.textTheme.button
-                              .copyWith(color: Colors.black),
+                              }).then((value) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              });
+                              //shipper lazım diyor önce id ile shipperi getir sonra shipperi yolla mini mi detailed mi emin değilim
+                            },
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.orange)),
+                            child: Text(
+                              'Yorum Yap',
+                              style: context.theme.textTheme.button
+                                  .copyWith(color: Colors.black),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-          );
-        });
+                ),
+              );
+            });
   }
 
   void _listeScrollListener() {
