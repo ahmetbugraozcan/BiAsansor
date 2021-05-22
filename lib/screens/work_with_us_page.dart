@@ -560,7 +560,6 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                         key: _aboutUsKey,
                         child: TextFormField(
                           controller: _aboutUsController,
-                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText:
                                 'Hakkımızda kısmı için bilgilerinizi giriniz',
@@ -626,7 +625,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                               ),
                               WidgetSpan(
                                 child: Text(
-                                  " hakkındaki aydınlatma formunu",
+                                  "hakkındaki aydınlatma formunu",
                                 ),
                               ),
                               WidgetSpan(

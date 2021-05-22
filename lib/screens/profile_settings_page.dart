@@ -104,7 +104,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
                   if (mounted) {
                     if (isUpdatedUserName &&
-                        isUpdatedUserLocation & isUpdatedPhoneNumber) {
+                        isUpdatedUserLocation &&
+                        isUpdatedPhoneNumber) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("Değişiklikler başarıyla kaydedildi"),
                       ));
@@ -192,8 +193,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       isUpdatedProfilePhoto.toString());
                   if (mounted) {
                     setState(() {
-                      if (isUpdatedUserName ||
-                          isUpdatedUserLocation ||
+                      if (isUpdatedUserName &&
+                          isUpdatedUserLocation &&
                           isUpdatedPhoneNumber) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Değişiklikler kaydedildi"),
@@ -508,11 +509,11 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           firstPhoneNumber = _phoneNumberController.text;
           return true;
         } else {
-          // await PlatformDuyarliAlertDialog(
-          //   mainButtonText: 'Tamam',
-          //   title: 'İşlem Başarısız',
-          //   body: 'Bu telefon numarası zaten kullanımda.',
-          // ).show(_scaffoldKey.currentContext);
+          await PlatformDuyarliAlertDialog(
+            mainButtonText: 'Tamam',
+            title: 'İşlem Başarısız',
+            body: 'Bu telefon numarası zaten kullanımda.',
+          ).show(_scaffoldKey.currentContext);
           return false;
         }
       } catch (ex) {

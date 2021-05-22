@@ -357,34 +357,41 @@ class _AllCommentsPageState extends State<AllCommentsPage> {
                   child: PopupMenuButton<int>(
                     onSelected: (value) {
                       if (value == 1) {
-                        setState(() {
-                          widget.comments
-                              .sort((a, b) => a.rating > b.rating ? 0 : 1);
-                          filterText = "Azalan Puan";
-                          initialValue = value;
-                        });
+                        if (value != initialValue) {
+                          setState(() {
+                            widget.comments
+                                .sort((a, b) => a.rating > b.rating ? 0 : 1);
+                            filterText = "Azalan Puan";
+                            initialValue = value;
+                          });
+                        }
                       } else if (value == 2) {
-                        setState(() {
-                          widget.comments
-                              .sort((a, b) => a.rating > b.rating ? 1 : 0);
-                          filterText = "Artan Puan";
-                          initialValue = value;
-                        });
+                        if (value != initialValue) {
+                          setState(() {
+                            widget.comments
+                                .sort((a, b) => a.rating > b.rating ? 1 : 0);
+                            filterText = "Artan Puan";
+                            initialValue = value;
+                          });
+                        }
                       } else if (value == 3) {
                         setState(() {
-                          widget.comments.sort((a, b) =>
-                              a.commentDate.compareTo(b.commentDate) > 1
-                                  ? 1
-                                  : 0);
+                          widget.comments.sort((a, b) {
+                            if (a.commentDate.compareTo(b.commentDate) > 0) {
+                              return 0;
+                            } else {
+                              return 1;
+                            }
+                          });
                           filterText = "Yeniden Eskiye";
                           initialValue = value;
                         });
                       } else if (value == 4) {
                         setState(() {
                           widget.comments.sort((a, b) =>
-                              a.commentDate.compareTo(b.commentDate) > 1
-                                  ? 0
-                                  : 1);
+                              a.commentDate.compareTo(b.commentDate) > 0
+                                  ? 1
+                                  : 0);
                           filterText = "Eskiden Yeniye";
                           initialValue = value;
                         });
