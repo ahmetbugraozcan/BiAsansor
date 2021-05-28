@@ -107,80 +107,91 @@ class _ShowMembershipFormsToAdminState
                       builder: (context) => ShowMembershipDetails(
                           membershipForm: membershipForm)));
             },
-            child: Card(
-              child: Column(
-                children: [
-                  Row(
+            child: Column(
+              children: [
+                Card(
+                  child: Column(
                     children: [
-                      Padding(
-                        padding: context.paddingAllLow,
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            radius: 60,
-                            // child: Image.network(membershipForm.photoUrl),
-                            child: checkUrl(membershipForm.photoUrl),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: context.paddingAllLow,
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 60,
+                                // child: Image.network(membershipForm.photoUrl),
+                                child: checkUrl(membershipForm.photoUrl),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 40,
-                      ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ShaderMask(
-                              shaderCallback: (Rect bounds) => RadialGradient(
-                                radius: 4,
-                                center: Alignment.topLeft,
-                                colors: [
-                                  Colors.orangeAccent,
-                                  Colors.deepOrange
-                                ],
-                                tileMode: TileMode.mirror,
-                              ).createShader(bounds),
-                              child: Text(membershipForm.fullName,
-                                  style: context.theme.textTheme.headline6
-                                      .copyWith(color: Colors.white)),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                    child: Icon(Icons.calendar_today, size: 14),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ShaderMask(
+                                  shaderCallback: (Rect bounds) =>
+                                      RadialGradient(
+                                    radius: 4,
+                                    center: Alignment.topLeft,
+                                    colors: [
+                                      Colors.orangeAccent,
+                                      Colors.deepOrange
+                                    ],
+                                    tileMode: TileMode.mirror,
+                                  ).createShader(bounds),
+                                  child: Text(membershipForm.fullName,
+                                      style: context.theme.textTheme.headline6
+                                          .copyWith(color: Colors.white)),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      WidgetSpan(
+                                        child: Icon(Icons.calendar_today,
+                                            size: 14),
+                                      ),
+                                      TextSpan(
+                                          text: ' Formu Yollayanın Tam Adı: ' +
+                                              membershipForm.fullName,
+                                          style: context
+                                              .theme.textTheme.bodyText2),
+                                    ],
                                   ),
-                                  TextSpan(
-                                      text: ' Formu Yollayanın Tam Adı: ' +
-                                          membershipForm.fullName,
-                                      style: context.theme.textTheme.bodyText2),
-                                ],
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                    child: Icon(Icons.calendar_today, size: 14),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      WidgetSpan(
+                                        child: Icon(Icons.calendar_today,
+                                            size: 14),
+                                      ),
+                                      TextSpan(
+                                          text:
+                                              ' Formu Yollayan Şirketin Adı: ' +
+                                                  membershipForm.shippingName,
+                                          style: context
+                                              .theme.textTheme.bodyText2),
+                                    ],
                                   ),
-                                  TextSpan(
-                                      text: ' Formu Yollayan Şirketin Adı: ' +
-                                          membershipForm.shippingName,
-                                      style: context.theme.textTheme.bodyText2),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          )
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 10),
+              ],
             ),
           );
         });

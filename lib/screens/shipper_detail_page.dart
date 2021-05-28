@@ -389,24 +389,30 @@ class _ShipperDetailPageState extends State<ShipperDetailPage>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      '${shipper.name} Yorumları',
-                                      style: context.theme.textTheme.bodyText2
-                                          .copyWith(
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                    TextButton(
-                                      onPressed: () => Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  AllCommentsPage(
-                                                    comments: shipper.comments,
-                                                    rating: shipper.rating,
-                                                    shipperName: shipper.name,
-                                                  ))),
+                                    Flexible(
+                                      flex: 2,
                                       child: Text(
-                                          'Tümünü Gör (${shipper.comments.length})'),
+                                        '${shipper.name} Yorumları',
+                                        style: context.theme.textTheme.bodyText2
+                                            .copyWith(
+                                                fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: TextButton(
+                                        onPressed: () => Navigator.push(
+                                            context,
+                                            CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    AllCommentsPage(
+                                                      comments:
+                                                          shipper.comments,
+                                                      rating: shipper.rating,
+                                                      shipperName: shipper.name,
+                                                    ))),
+                                        child: Text(
+                                            'Tümünü Gör (${shipper.comments.length})'),
+                                      ),
                                     ),
                                   ],
                                 ),

@@ -1,3 +1,4 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -685,6 +686,7 @@ class _SearchPageState extends State<SearchPage> {
               child: Form(
                 key: _autoCompleteTextFieldKey,
                 child: TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(icon: Icon(Icons.search)),
                   onChanged: (value) {
                     setState(() {
@@ -692,7 +694,8 @@ class _SearchPageState extends State<SearchPage> {
                       list.clear();
                     });
                     allLocations.forEach((element) {
-                      if (element.toLowerCase().contains(value.toLowerCase())) {
+                      if (removeDiacritics(element.toLowerCase())
+                          .contains(removeDiacritics(value.toLowerCase()))) {
                         setState(() {
                           list.add(element);
                         });

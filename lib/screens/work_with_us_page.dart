@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
@@ -680,7 +681,7 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                                           aboutUs: _aboutUs,
                                           locations: shipperLocations,
                                           photoUrl: photoUrl ??
-                                              'https://image.flaticon.com/icons/png/512/3629/3629148.png');
+                                              'https://biasansor.online/wp-content/uploads/2021/04/asansor1.png');
                                       await _viewModel
                                           .addMembershipFormToDatabase(
                                               membershipForm);
@@ -758,7 +759,8 @@ class _WorkWithUsPageState extends State<WorkWithUsPage> {
                       list.clear();
                     });
                     allLocations.forEach((element) {
-                      if (element.toLowerCase().contains(value.toLowerCase())) {
+                      if (removeDiacritics(element.toLowerCase())
+                          .contains(removeDiacritics(value.toLowerCase()))) {
                         setState(() {
                           list.add(element);
                         });

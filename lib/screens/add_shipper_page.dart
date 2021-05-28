@@ -1,3 +1,4 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_biasansor/core/extensions/context_extension.dart';
@@ -90,7 +91,7 @@ class _AddShipperPageState extends State<AddShipperPage> {
     _autoCompleteTextFieldController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _photoController.text =
-          'https://image.flaticon.com/icons/png/512/3629/3629148.png';
+          'https://biasansor.online/wp-content/uploads/2021/04/asansor1.png';
     });
   }
 
@@ -922,7 +923,8 @@ class _AddShipperPageState extends State<AddShipperPage> {
                       list.clear();
                     });
                     allLocations.forEach((element) {
-                      if (element.toLowerCase().contains(value.toLowerCase())) {
+                      if (removeDiacritics(element.toLowerCase())
+                          .contains(removeDiacritics(value.toLowerCase()))) {
                         setState(() {
                           list.add(element);
                         });
