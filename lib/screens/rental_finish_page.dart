@@ -701,7 +701,7 @@ class _RentalFinishPageState extends State<RentalFinishPage> {
         readOnly: true,
         initialValue: _viewModel.user.fullName ?? '',
         decoration: InputDecoration(
-          labelText: 'İsim-Soyisim',
+          labelText: 'İsim-Soy İsim',
           prefixIcon: Icon(MaterialCommunityIcons.human_male_female),
           contentPadding:
               EdgeInsets.symmetric(vertical: 14.0, horizontal: 10.0),
